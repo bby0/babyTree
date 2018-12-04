@@ -1,0 +1,31 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://18.216.14.5:3306/logo?useSSL=false&serverTimezone=GMT
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+#  jpa:
+#    database: mysql
+#    hibernate:
+#      ddl-auto: update
+mybatis:
+  #实体类所做包
+  type-aliases-package: com.qfedu.pojo
+  #mapper.xml所在位置
+  mapper-locations: classpath:mappers/*.xml
+pagehelper:
+4     helperDialect: sqlserver
+5     reasonable: true
+6     supportMethodsArguments: true
+7     pageSizeZero: true
+8     params: count=countSql
+
+
+
+##
+#thymeleaf:
+#    cache: false
+#    mode: LEGACYHTML5
