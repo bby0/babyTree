@@ -3,10 +3,19 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://18.216.14.5:3306/logo?useSSL=false&serverTimezone=GMT
+    url: jdbc:mysql://10.8.162.99:3306/babytree?useSSL=false&serverTimezone=GMT
     username: root
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
+  redis:
+    database: 0
+    host: 18.216.14.5
+    port: 6379
+    password: peng
+  session:
+      store-type: redis
+
+
 #  jpa:
 #    database: mysql
 #    hibernate:
@@ -22,6 +31,8 @@ pagehelper:
 6     supportMethodsArguments: true
 7     pageSizeZero: true
 8     params: count=countSql
+
+
 
 
 

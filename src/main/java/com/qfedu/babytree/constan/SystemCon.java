@@ -1,9 +1,6 @@
 package com.qfedu.babytree.constan;
 
-/**
- *@Author feri
- *@Date Created in 2018/11/28 09:28
- */
+
 public class SystemCon {
     //返回码
     public static final int ROK=100000;
