@@ -4,6 +4,9 @@ package com.qfedu.babytree.util;
 
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
 import java.util.Calendar;
@@ -14,23 +17,31 @@ import java.util.List;
  *@Date Created in 2018/7/27 11:45
  * 基于阿里云的oss      对象存储
  */
+
+@Component
+@Configuration
 public class OSSUtil {
 //    private String endpoint = "oss-cn-beijing.aliyuncs.com";
 //    private String accessKeyId = "LTAIhTvqTSmlmjeQ";
 //    private String accessKeySecret = "X7X9w0Ck5GEIWgP9tl0Q6sgmFjQuMv";
 //    private String bucketName = "feriteach";
 
+
+    @Value("${oss.endpoint}")
     private String endpoint;
+    @Value("${oss.accessKeyId}")
     private String accessKeyId;
+    @Value("${oss.accessKeySecret}")
     private String accessKeySecret ;
+    @Value("${oss.bucketName}")
     private String bucketName;
 
-    public OSSUtil(String endpoint, String accessKeyId, String accessKeySecret, String bucketName) {
-        this.endpoint = endpoint;
-        this.accessKeyId = accessKeyId;
-        this.accessKeySecret = accessKeySecret;
-        this.bucketName = bucketName;
-    }
+//    public OSSUtil(String endpoint, String accessKeyId, String accessKeySecret, String bucketName) {
+//        this.endpoint = endpoint;
+//        this.accessKeyId = accessKeyId;
+//        this.accessKeySecret = accessKeySecret;
+//        this.bucketName = bucketName;
+//    }
 
     //创建客户端
     private OSSClient createClient(){
