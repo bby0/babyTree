@@ -69,10 +69,7 @@ public class SSOController {
             response.addCookie(cookie);
 
         }else{
-            //Token无效 Cookie就需要删除
-            Cookie cookie=new Cookie(SystemCon.TOKECOOKIE,"");
-            cookie.setMaxAge(0);
-            response.addCookie(cookie);
+            return resultBean;
         }
         return resultBean;
     }
