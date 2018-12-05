@@ -5,7 +5,7 @@ import com.qfedu.babytree.pojo.Users;
 public interface UsersMapper {
     int deleteByPrimaryKey(Integer userId);
 
-    //注册
+    //新增用户
     int insert(Users record);
 
     int insertSelective(Users record);

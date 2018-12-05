@@ -23,6 +23,8 @@ public class Users {
 
     private Integer userState;
 
+    private Date userDuedate;
+
     private String userImgurl;
 
     public Integer getUserId() {
@@ -105,6 +107,14 @@ public class Users {
         this.userState = userState;
     }
 
+    public Date getUserDuedate() {
+        return userDuedate;
+    }
+
+    public void setUserDuedate(Date userDuedate) {
+        this.userDuedate = userDuedate;
+    }
+
     public String getUserImgurl() {
         return userImgurl;
     }
@@ -126,6 +136,7 @@ public class Users {
                 ", userAddress='" + userAddress + '\'' +
                 ", userLevel=" + userLevel +
                 ", userState=" + userState +
+                ", userDuedate=" + userDuedate +
                 ", userImgurl='" + userImgurl + '\'' +
                 '}';
     }
