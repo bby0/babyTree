@@ -44,7 +44,7 @@ public class SSOServiceImpl implements SSOService {
         System.out.println(name);
         //获取登录的用户对象
         Users user=usersMapper.selectByName(name);
-        System.out.println(user);
+        System.out.println("user : " + user);
         //校验用户名是否存在
         if(user!=null){
             if(Objects.equals(user.getUserPassword(),password)){
@@ -69,7 +69,7 @@ public class SSOServiceImpl implements SSOService {
         ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
         //String value=jedisUtil.getHash(SystemCon.TOKENHASH,"token:"+token);
         String value = ops.get(SystemCon.TOKENHASH);
-        System.out.println(value);
+        System.out.println("value : " + value);
         if(StringUtil.checkNoEmpty(value)){
             //Users user=JSON.parseObject(value,Users.class);
             Token tk = TokenUtil.parseToken(value);

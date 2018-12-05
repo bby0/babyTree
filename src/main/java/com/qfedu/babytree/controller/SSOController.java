@@ -7,6 +7,8 @@ import com.qfedu.babytree.util.CookieUtil;
 import com.qfedu.babytree.util.StringUtil;
 import com.qfedu.babytree.vo.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,15 +24,17 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 public class SSOController {
     @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+    @Autowired
     private SSOService ssoService;
 
     //登录
     @PostMapping("userlogin")
     public ResultBean login(String userNickname, String userPassword, HttpServletRequest request, HttpServletResponse response){
         String token= CookieUtil.getCk(request,SystemCon.TOKECOOKIE);
-        System.out.println("token:"+token);
-        System.out.println(userNickname);
-        if(StringUtil.checkNoEmpty(token)){
+        System.out.println("token: "+token);
+        System.out.println("userNickname ：" + userNickname);
+        if(StringUtil.checkEmpty(token)){
             ResultBean rb=ssoService.login(userNickname,userPassword,request.getRemoteAddr());
             System.out.println("开始：");
             if(rb.getCode()== SystemCon.ROK){
@@ -44,6 +48,7 @@ public class SSOController {
         }else{
             //存在Token
             //校验Token
+            System.out.println("登陆中验证 ：");
             return ssoService.checkLogin(token);
         }
     }
@@ -56,7 +61,13 @@ public class SSOController {
         System.out.println(1);
         if(resultBean.getCode()==SystemCon.ROK){
             //存在就刷新时间
-            CookieUtil.setCK(response,SystemCon.TOKECOOKIE, TokenUtil.updateToken(TokenUtil.parseToken(tk)));
+            System.out.println("刷新了时间");
+            String s = TokenUtil.updateToken(TokenUtil.parseToken(tk));
+            CookieUtil.setCK(response,SystemCon.TOKECOOKIE, s);
+            //写入Redis
+            ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
+            ops.set(SystemCon.TOKENHASH, s);
+
 
         }else{
             //Token无效 Cookie就需要删除
