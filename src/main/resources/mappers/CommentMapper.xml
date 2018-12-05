@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qfedu.babytree.mapper.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.qfedu.babytree.pojo.Comment" >
+    <id column="comm_id" property="commId" jdbcType="INTEGER" />
+    <result column="comm_content" property="commContent" jdbcType="VARCHAR" />
+    <result column="comm_likenum" property="commLikenum" jdbcType="INTEGER" />
+    <result column="story_id" property="storyId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    comm_id, comm_content, comm_likenum, story_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from comment
+    where comm_id = #{commId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from comment
+    where comm_id = #{commId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.babytree.pojo.Comment" >
+    insert into comment (comm_id, comm_content, comm_likenum, 
+      story_id)
+    values (#{commId,jdbcType=INTEGER}, #{commContent,jdbcType=VARCHAR}, #{commLikenum,jdbcType=INTEGER}, 
+      #{storyId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.babytree.pojo.Comment" >
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commId != null" >
+        comm_id,
+      </if>
+      <if test="commContent != null" >
+        comm_content,
+      </if>
+      <if test="commLikenum != null" >
+        comm_likenum,
+      </if>
+      <if test="storyId != null" >
+        story_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commId != null" >
+        #{commId,jdbcType=INTEGER},
+      </if>
+      <if test="commContent != null" >
+        #{commContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commLikenum != null" >
+        #{commLikenum,jdbcType=INTEGER},
+      </if>
+      <if test="storyId != null" >
+        #{storyId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.babytree.pojo.Comment" >
+    update comment
+    <set >
+      <if test="commContent != null" >
+        comm_content = #{commContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commLikenum != null" >
+        comm_likenum = #{commLikenum,jdbcType=INTEGER},
+      </if>
+      <if test="storyId != null" >
+        story_id = #{storyId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where comm_id = #{commId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.babytree.pojo.Comment" >
+    update comment
+    set comm_content = #{commContent,jdbcType=VARCHAR},
+      comm_likenum = #{commLikenum,jdbcType=INTEGER},
+      story_id = #{storyId,jdbcType=INTEGER}
+    where comm_id = #{commId,jdbcType=INTEGER}
+  </update>
+</mapper>

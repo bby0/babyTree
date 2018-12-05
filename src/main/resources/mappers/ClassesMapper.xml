@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qfedu.babytree.mapper.ClassesMapper" >
+  <resultMap id="BaseResultMap" type="com.qfedu.babytree.pojo.Classes" >
+    <id column="clas_id" property="clasId" jdbcType="INTEGER" />
+    <result column="clas_name" property="clasName" jdbcType="VARCHAR" />
+    <result column="clas_teacher" property="clasTeacher" jdbcType="VARCHAR" />
+    <result column="clas_teatel" property="clasTeatel" jdbcType="VARCHAR" />
+    <result column="clas_typeid" property="clasTypeid" jdbcType="INTEGER" />
+    <result column="clas_state" property="clasState" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    clas_id, clas_name, clas_teacher, clas_teatel, clas_typeid, clas_state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from classes
+    where clas_id = #{clasId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from classes
+    where clas_id = #{clasId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.babytree.pojo.Classes" >
+    insert into classes (clas_id, clas_name, clas_teacher, 
+      clas_teatel, clas_typeid, clas_state
+      )
+    values (#{clasId,jdbcType=INTEGER}, #{clasName,jdbcType=VARCHAR}, #{clasTeacher,jdbcType=VARCHAR}, 
+      #{clasTeatel,jdbcType=VARCHAR}, #{clasTypeid,jdbcType=INTEGER}, #{clasState,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.babytree.pojo.Classes" >
+    insert into classes
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="clasId != null" >
+        clas_id,
+      </if>
+      <if test="clasName != null" >
+        clas_name,
+      </if>
+      <if test="clasTeacher != null" >
+        clas_teacher,
+      </if>
+      <if test="clasTeatel != null" >
+        clas_teatel,
+      </if>
+      <if test="clasTypeid != null" >
+        clas_typeid,
+      </if>
+      <if test="clasState != null" >
+        clas_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="clasId != null" >
+        #{clasId,jdbcType=INTEGER},
+      </if>
+      <if test="clasName != null" >
+        #{clasName,jdbcType=VARCHAR},
+      </if>
+      <if test="clasTeacher != null" >
+        #{clasTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="clasTeatel != null" >
+        #{clasTeatel,jdbcType=VARCHAR},
+      </if>
+      <if test="clasTypeid != null" >
+        #{clasTypeid,jdbcType=INTEGER},
+      </if>
+      <if test="clasState != null" >
+        #{clasState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.babytree.pojo.Classes" >
+    update classes
+    <set >
+      <if test="clasName != null" >
+        clas_name = #{clasName,jdbcType=VARCHAR},
+      </if>
+      <if test="clasTeacher != null" >
+        clas_teacher = #{clasTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="clasTeatel != null" >
+        clas_teatel = #{clasTeatel,jdbcType=VARCHAR},
+      </if>
+      <if test="clasTypeid != null" >
+        clas_typeid = #{clasTypeid,jdbcType=INTEGER},
+      </if>
+      <if test="clasState != null" >
+        clas_state = #{clasState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where clas_id = #{clasId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.babytree.pojo.Classes" >
+    update classes
+    set clas_name = #{clasName,jdbcType=VARCHAR},
+      clas_teacher = #{clasTeacher,jdbcType=VARCHAR},
+      clas_teatel = #{clasTeatel,jdbcType=VARCHAR},
+      clas_typeid = #{clasTypeid,jdbcType=INTEGER},
+      clas_state = #{clasState,jdbcType=INTEGER}
+    where clas_id = #{clasId,jdbcType=INTEGER}
+  </update>
+</mapper>

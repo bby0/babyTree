@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qfedu.babytree.mapper.BabyMapper" >
+  <resultMap id="BaseResultMap" type="com.qfedu.babytree.pojo.Baby" >
+    <id column="baby_id" property="babyId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="baby_sex" property="babySex" jdbcType="INTEGER" />
+    <result column="baby_name" property="babyName" jdbcType="VARCHAR" />
+    <result column="baby_weight" property="babyWeight" jdbcType="DOUBLE" />
+    <result column="baby_height" property="babyHeight" jdbcType="DOUBLE" />
+    <result column="baby_birth" property="babyBirth" jdbcType="VARCHAR" />
+    <result column="baby_status" property="babyStatus" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.qfedu.babytree.pojo.Baby" extends="BaseResultMap" >
+    <result column="baby_imgurl" property="babyImgurl" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    baby_id, user_id, baby_sex, baby_name, baby_weight, baby_height, baby_birth, baby_status
+  </sql>
+  <sql id="Blob_Column_List" >
+    baby_imgurl
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from baby
+    where baby_id = #{babyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from baby
+    where baby_id = #{babyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.babytree.pojo.Baby" >
+    insert into baby (baby_id, user_id, baby_sex, 
+      baby_name, baby_weight, baby_height, 
+      baby_birth, baby_status, baby_imgurl
+      )
+    values (#{babyId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{babySex,jdbcType=INTEGER}, 
+      #{babyName,jdbcType=VARCHAR}, #{babyWeight,jdbcType=DOUBLE}, #{babyHeight,jdbcType=DOUBLE}, 
+      #{babyBirth,jdbcType=VARCHAR}, #{babyStatus,jdbcType=INTEGER}, #{babyImgurl,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.babytree.pojo.Baby" >
+    insert into baby
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="babyId != null" >
+        baby_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="babySex != null" >
+        baby_sex,
+      </if>
+      <if test="babyName != null" >
+        baby_name,
+      </if>
+      <if test="babyWeight != null" >
+        baby_weight,
+      </if>
+      <if test="babyHeight != null" >
+        baby_height,
+      </if>
+      <if test="babyBirth != null" >
+        baby_birth,
+      </if>
+      <if test="babyStatus != null" >
+        baby_status,
+      </if>
+      <if test="babyImgurl != null" >
+        baby_imgurl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="babyId != null" >
+        #{babyId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="babySex != null" >
+        #{babySex,jdbcType=INTEGER},
+      </if>
+      <if test="babyName != null" >
+        #{babyName,jdbcType=VARCHAR},
+      </if>
+      <if test="babyWeight != null" >
+        #{babyWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="babyHeight != null" >
+        #{babyHeight,jdbcType=DOUBLE},
+      </if>
+      <if test="babyBirth != null" >
+        #{babyBirth,jdbcType=VARCHAR},
+      </if>
+      <if test="babyStatus != null" >
+        #{babyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="babyImgurl != null" >
+        #{babyImgurl,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.babytree.pojo.Baby" >
+    update baby
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="babySex != null" >
+        baby_sex = #{babySex,jdbcType=INTEGER},
+      </if>
+      <if test="babyName != null" >
+        baby_name = #{babyName,jdbcType=VARCHAR},
+      </if>
+      <if test="babyWeight != null" >
+        baby_weight = #{babyWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="babyHeight != null" >
+        baby_height = #{babyHeight,jdbcType=DOUBLE},
+      </if>
+      <if test="babyBirth != null" >
+        baby_birth = #{babyBirth,jdbcType=VARCHAR},
+      </if>
+      <if test="babyStatus != null" >
+        baby_status = #{babyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="babyImgurl != null" >
+        baby_imgurl = #{babyImgurl,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where baby_id = #{babyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.qfedu.babytree.pojo.Baby" >
+    update baby
+    set user_id = #{userId,jdbcType=INTEGER},
+      baby_sex = #{babySex,jdbcType=INTEGER},
+      baby_name = #{babyName,jdbcType=VARCHAR},
+      baby_weight = #{babyWeight,jdbcType=DOUBLE},
+      baby_height = #{babyHeight,jdbcType=DOUBLE},
+      baby_birth = #{babyBirth,jdbcType=VARCHAR},
+      baby_status = #{babyStatus,jdbcType=INTEGER},
+      baby_imgurl = #{babyImgurl,jdbcType=LONGVARCHAR}
+    where baby_id = #{babyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.babytree.pojo.Baby" >
+    update baby
+    set user_id = #{userId,jdbcType=INTEGER},
+      baby_sex = #{babySex,jdbcType=INTEGER},
+      baby_name = #{babyName,jdbcType=VARCHAR},
+      baby_weight = #{babyWeight,jdbcType=DOUBLE},
+      baby_height = #{babyHeight,jdbcType=DOUBLE},
+      baby_birth = #{babyBirth,jdbcType=VARCHAR},
+      baby_status = #{babyStatus,jdbcType=INTEGER}
+    where baby_id = #{babyId,jdbcType=INTEGER}
+  </update>
+</mapper>

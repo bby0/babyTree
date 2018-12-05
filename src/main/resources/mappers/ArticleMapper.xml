@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qfedu.babytree.mapper.ArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.qfedu.babytree.pojo.Article" >
+    <id column="art_id" property="artId" jdbcType="INTEGER" />
+    <result column="art_title" property="artTitle" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.qfedu.babytree.pojo.Article" extends="BaseResultMap" >
+    <result column="art_content" property="artContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    art_id, art_title
+  </sql>
+  <sql id="Blob_Column_List" >
+    art_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article
+    where art_id = #{artId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from article
+    where art_id = #{artId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.babytree.pojo.Article" >
+    insert into article (art_id, art_title, art_content
+      )
+    values (#{artId,jdbcType=INTEGER}, #{artTitle,jdbcType=VARCHAR}, #{artContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.babytree.pojo.Article" >
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="artId != null" >
+        art_id,
+      </if>
+      <if test="artTitle != null" >
+        art_title,
+      </if>
+      <if test="artContent != null" >
+        art_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="artId != null" >
+        #{artId,jdbcType=INTEGER},
+      </if>
+      <if test="artTitle != null" >
+        #{artTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="artContent != null" >
+        #{artContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.babytree.pojo.Article" >
+    update article
+    <set >
+      <if test="artTitle != null" >
+        art_title = #{artTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="artContent != null" >
+        art_content = #{artContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where art_id = #{artId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.qfedu.babytree.pojo.Article" >
+    update article
+    set art_title = #{artTitle,jdbcType=VARCHAR},
+      art_content = #{artContent,jdbcType=LONGVARCHAR}
+    where art_id = #{artId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.babytree.pojo.Article" >
+    update article
+    set art_title = #{artTitle,jdbcType=VARCHAR}
+    where art_id = #{artId,jdbcType=INTEGER}
+  </update>
+</mapper>

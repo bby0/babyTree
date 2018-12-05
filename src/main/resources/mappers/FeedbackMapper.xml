@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qfedu.babytree.mapper.FeedbackMapper" >
+  <resultMap id="BaseResultMap" type="com.qfedu.babytree.pojo.Feedback" >
+    <id column="fee_id" property="feeId" jdbcType="INTEGER" />
+    <result column="fee_user_id" property="feeUserId" jdbcType="INTEGER" />
+    <result column="fee_link" property="feeLink" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.qfedu.babytree.pojo.Feedback" extends="BaseResultMap" >
+    <result column="fee_content" property="feeContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    fee_id, fee_user_id, fee_link
+  </sql>
+  <sql id="Blob_Column_List" >
+    fee_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from feedback
+    where fee_id = #{feeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from feedback
+    where fee_id = #{feeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.babytree.pojo.Feedback" >
+    insert into feedback (fee_id, fee_user_id, fee_link, 
+      fee_content)
+    values (#{feeId,jdbcType=INTEGER}, #{feeUserId,jdbcType=INTEGER}, #{feeLink,jdbcType=VARCHAR}, 
+      #{feeContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.babytree.pojo.Feedback" >
+    insert into feedback
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="feeId != null" >
+        fee_id,
+      </if>
+      <if test="feeUserId != null" >
+        fee_user_id,
+      </if>
+      <if test="feeLink != null" >
+        fee_link,
+      </if>
+      <if test="feeContent != null" >
+        fee_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="feeId != null" >
+        #{feeId,jdbcType=INTEGER},
+      </if>
+      <if test="feeUserId != null" >
+        #{feeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="feeLink != null" >
+        #{feeLink,jdbcType=VARCHAR},
+      </if>
+      <if test="feeContent != null" >
+        #{feeContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.babytree.pojo.Feedback" >
+    update feedback
+    <set >
+      <if test="feeUserId != null" >
+        fee_user_id = #{feeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="feeLink != null" >
+        fee_link = #{feeLink,jdbcType=VARCHAR},
+      </if>
+      <if test="feeContent != null" >
+        fee_content = #{feeContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where fee_id = #{feeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.qfedu.babytree.pojo.Feedback" >
+    update feedback
+    set fee_user_id = #{feeUserId,jdbcType=INTEGER},
+      fee_link = #{feeLink,jdbcType=VARCHAR},
+      fee_content = #{feeContent,jdbcType=LONGVARCHAR}
+    where fee_id = #{feeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.babytree.pojo.Feedback" >
+    update feedback
+    set fee_user_id = #{feeUserId,jdbcType=INTEGER},
+      fee_link = #{feeLink,jdbcType=VARCHAR}
+    where fee_id = #{feeId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -8,11 +8,11 @@
     <result column="user_nickname" property="userNickname" jdbcType="VARCHAR" />
     <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
     <result column="user_sex" property="userSex" jdbcType="INTEGER" />
-    <result column="user_birth" property="userBirth" jdbcType="TIMESTAMP" />
+    <result column="user_birth" property="userBirth" jdbcType="VARCHAR" />
     <result column="user_address" property="userAddress" jdbcType="VARCHAR" />
     <result column="user_level" property="userLevel" jdbcType="INTEGER" />
     <result column="user_state" property="userState" jdbcType="INTEGER" />
-    <result column="user_duedate" property="userDuedate" jdbcType="TIMESTAMP" />
+    <result column="user_duedate" property="userDuedate" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.qfedu.babytree.pojo.Users" extends="BaseResultMap" >
     <result column="user_imgurl" property="userImgurl" jdbcType="LONGVARCHAR" />
@@ -44,8 +44,8 @@
       )
     values (#{userId,jdbcType=INTEGER}, #{userNoticeid,jdbcType=INTEGER}, #{userTel,jdbcType=VARCHAR}, 
       #{userNickname,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, #{userSex,jdbcType=INTEGER}, 
-      #{userBirth,jdbcType=TIMESTAMP}, #{userAddress,jdbcType=VARCHAR}, #{userLevel,jdbcType=INTEGER}, 
-      #{userState,jdbcType=INTEGER}, #{userDuedate,jdbcType=TIMESTAMP}, #{userImgurl,jdbcType=LONGVARCHAR}
+      #{userBirth,jdbcType=VARCHAR}, #{userAddress,jdbcType=VARCHAR}, #{userLevel,jdbcType=INTEGER}, 
+      #{userState,jdbcType=INTEGER}, #{userDuedate,jdbcType=VARCHAR}, #{userImgurl,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.qfedu.babytree.pojo.Users" >
@@ -108,7 +108,7 @@
         #{userSex,jdbcType=INTEGER},
       </if>
       <if test="userBirth != null" >
-        #{userBirth,jdbcType=TIMESTAMP},
+        #{userBirth,jdbcType=VARCHAR},
       </if>
       <if test="userAddress != null" >
         #{userAddress,jdbcType=VARCHAR},
@@ -120,7 +120,7 @@
         #{userState,jdbcType=INTEGER},
       </if>
       <if test="userDuedate != null" >
-        #{userDuedate,jdbcType=TIMESTAMP},
+        #{userDuedate,jdbcType=VARCHAR},
       </if>
       <if test="userImgurl != null" >
         #{userImgurl,jdbcType=LONGVARCHAR},
@@ -146,7 +146,7 @@
         user_sex = #{userSex,jdbcType=INTEGER},
       </if>
       <if test="userBirth != null" >
-        user_birth = #{userBirth,jdbcType=TIMESTAMP},
+        user_birth = #{userBirth,jdbcType=VARCHAR},
       </if>
       <if test="userAddress != null" >
         user_address = #{userAddress,jdbcType=VARCHAR},
@@ -158,7 +158,7 @@
         user_state = #{userState,jdbcType=INTEGER},
       </if>
       <if test="userDuedate != null" >
-        user_duedate = #{userDuedate,jdbcType=TIMESTAMP},
+        user_duedate = #{userDuedate,jdbcType=VARCHAR},
       </if>
       <if test="userImgurl != null" >
         user_imgurl = #{userImgurl,jdbcType=LONGVARCHAR},
@@ -173,11 +173,11 @@
       user_nickname = #{userNickname,jdbcType=VARCHAR},
       user_password = #{userPassword,jdbcType=VARCHAR},
       user_sex = #{userSex,jdbcType=INTEGER},
-      user_birth = #{userBirth,jdbcType=TIMESTAMP},
+      user_birth = #{userBirth,jdbcType=VARCHAR},
       user_address = #{userAddress,jdbcType=VARCHAR},
       user_level = #{userLevel,jdbcType=INTEGER},
       user_state = #{userState,jdbcType=INTEGER},
-      user_duedate = #{userDuedate,jdbcType=TIMESTAMP},
+      user_duedate = #{userDuedate,jdbcType=VARCHAR},
       user_imgurl = #{userImgurl,jdbcType=LONGVARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
@@ -188,20 +188,20 @@
       user_nickname = #{userNickname,jdbcType=VARCHAR},
       user_password = #{userPassword,jdbcType=VARCHAR},
       user_sex = #{userSex,jdbcType=INTEGER},
-      user_birth = #{userBirth,jdbcType=TIMESTAMP},
+      user_birth = #{userBirth,jdbcType=VARCHAR},
       user_address = #{userAddress,jdbcType=VARCHAR},
       user_level = #{userLevel,jdbcType=INTEGER},
       user_state = #{userState,jdbcType=INTEGER},
-      user_duedate = #{userDuedate,jdbcType=TIMESTAMP}
+      user_duedate = #{userDuedate,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 
-    <select id="selectByName"  resultMap="BaseResultMap">
+  <select id="selectByName"  resultMap="BaseResultMap">
 
 
-        select
-        <include refid="Base_Column_List"/>
-        from users where user_tel = #{name} or user_nickname = #{name}
+    select
+    <include refid="Base_Column_List"/>
+    from users where user_tel = #{name} or user_nickname = #{name}
 
-    </select>
+  </select>
 </mapper>

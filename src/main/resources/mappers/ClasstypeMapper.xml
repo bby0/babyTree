@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qfedu.babytree.mapper.ClasstypeMapper" >
+  <resultMap id="BaseResultMap" type="com.qfedu.babytree.pojo.Classtype" >
+    <id column="cls_type_id" property="clsTypeId" jdbcType="INTEGER" />
+    <result column="cls_type_name" property="clsTypeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cls_type_id, cls_type_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from classtype
+    where cls_type_id = #{clsTypeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from classtype
+    where cls_type_id = #{clsTypeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.babytree.pojo.Classtype" >
+    insert into classtype (cls_type_id, cls_type_name)
+    values (#{clsTypeId,jdbcType=INTEGER}, #{clsTypeName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.babytree.pojo.Classtype" >
+    insert into classtype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="clsTypeId != null" >
+        cls_type_id,
+      </if>
+      <if test="clsTypeName != null" >
+        cls_type_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="clsTypeId != null" >
+        #{clsTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="clsTypeName != null" >
+        #{clsTypeName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.babytree.pojo.Classtype" >
+    update classtype
+    <set >
+      <if test="clsTypeName != null" >
+        cls_type_name = #{clsTypeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cls_type_id = #{clsTypeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.babytree.pojo.Classtype" >
+    update classtype
+    set cls_type_name = #{clsTypeName,jdbcType=VARCHAR}
+    where cls_type_id = #{clsTypeId,jdbcType=INTEGER}
+  </update>
+</mapper>

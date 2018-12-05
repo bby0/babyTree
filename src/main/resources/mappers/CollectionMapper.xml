@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qfedu.babytree.mapper.CollectionMapper" >
+  <resultMap id="BaseResultMap" type="com.qfedu.babytree.pojo.Collection" >
+    <id column="col_id" property="colId" jdbcType="INTEGER" />
+    <result column="col_userid" property="colUserid" jdbcType="INTEGER" />
+    <result column="col_artid" property="colArtid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    col_id, col_userid, col_artid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from collection
+    where col_id = #{colId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from collection
+    where col_id = #{colId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.babytree.pojo.Collection" >
+    insert into collection (col_id, col_userid, col_artid
+      )
+    values (#{colId,jdbcType=INTEGER}, #{colUserid,jdbcType=INTEGER}, #{colArtid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.babytree.pojo.Collection" >
+    insert into collection
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="colId != null" >
+        col_id,
+      </if>
+      <if test="colUserid != null" >
+        col_userid,
+      </if>
+      <if test="colArtid != null" >
+        col_artid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="colId != null" >
+        #{colId,jdbcType=INTEGER},
+      </if>
+      <if test="colUserid != null" >
+        #{colUserid,jdbcType=INTEGER},
+      </if>
+      <if test="colArtid != null" >
+        #{colArtid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.babytree.pojo.Collection" >
+    update collection
+    <set >
+      <if test="colUserid != null" >
+        col_userid = #{colUserid,jdbcType=INTEGER},
+      </if>
+      <if test="colArtid != null" >
+        col_artid = #{colArtid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where col_id = #{colId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.babytree.pojo.Collection" >
+    update collection
+    set col_userid = #{colUserid,jdbcType=INTEGER},
+      col_artid = #{colArtid,jdbcType=INTEGER}
+    where col_id = #{colId,jdbcType=INTEGER}
+  </update>
+</mapper>

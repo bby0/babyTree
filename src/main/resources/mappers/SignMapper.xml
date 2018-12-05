@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qfedu.babytree.mapper.SignMapper" >
+  <resultMap id="BaseResultMap" type="com.qfedu.babytree.pojo.Sign" >
+    <id column="sig_id" property="sigId" jdbcType="INTEGER" />
+    <result column="sig_userid" property="sigUserid" jdbcType="INTEGER" />
+    <result column="sig_times" property="sigTimes" jdbcType="INTEGER" />
+    <result column="sig_time" property="sigTime" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sig_id, sig_userid, sig_times, sig_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sign
+    where sig_id = #{sigId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sign
+    where sig_id = #{sigId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.babytree.pojo.Sign" >
+    insert into sign (sig_id, sig_userid, sig_times, 
+      sig_time)
+    values (#{sigId,jdbcType=INTEGER}, #{sigUserid,jdbcType=INTEGER}, #{sigTimes,jdbcType=INTEGER}, 
+      #{sigTime,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.babytree.pojo.Sign" >
+    insert into sign
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sigId != null" >
+        sig_id,
+      </if>
+      <if test="sigUserid != null" >
+        sig_userid,
+      </if>
+      <if test="sigTimes != null" >
+        sig_times,
+      </if>
+      <if test="sigTime != null" >
+        sig_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sigId != null" >
+        #{sigId,jdbcType=INTEGER},
+      </if>
+      <if test="sigUserid != null" >
+        #{sigUserid,jdbcType=INTEGER},
+      </if>
+      <if test="sigTimes != null" >
+        #{sigTimes,jdbcType=INTEGER},
+      </if>
+      <if test="sigTime != null" >
+        #{sigTime,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.babytree.pojo.Sign" >
+    update sign
+    <set >
+      <if test="sigUserid != null" >
+        sig_userid = #{sigUserid,jdbcType=INTEGER},
+      </if>
+      <if test="sigTimes != null" >
+        sig_times = #{sigTimes,jdbcType=INTEGER},
+      </if>
+      <if test="sigTime != null" >
+        sig_time = #{sigTime,jdbcType=INTEGER},
+      </if>
+    </set>
+    where sig_id = #{sigId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.babytree.pojo.Sign" >
+    update sign
+    set sig_userid = #{sigUserid,jdbcType=INTEGER},
+      sig_times = #{sigTimes,jdbcType=INTEGER},
+      sig_time = #{sigTime,jdbcType=INTEGER}
+    where sig_id = #{sigId,jdbcType=INTEGER}
+  </update>
+</mapper>

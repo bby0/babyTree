@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qfedu.babytree.mapper.StoryMapper" >
+  <resultMap id="BaseResultMap" type="com.qfedu.babytree.pojo.Story" >
+    <id column="sto_id" property="stoId" jdbcType="INTEGER" />
+    <result column="sto_user_id" property="stoUserId" jdbcType="INTEGER" />
+    <result column="sto_baby_id" property="stoBabyId" jdbcType="INTEGER" />
+    <result column="sto_likenum" property="stoLikenum" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.qfedu.babytree.pojo.Story" extends="BaseResultMap" >
+    <result column="sto_content" property="stoContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sto_id, sto_user_id, sto_baby_id, sto_likenum
+  </sql>
+  <sql id="Blob_Column_List" >
+    sto_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from story
+    where sto_id = #{stoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from story
+    where sto_id = #{stoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.babytree.pojo.Story" >
+    insert into story (sto_id, sto_user_id, sto_baby_id, 
+      sto_likenum, sto_content)
+    values (#{stoId,jdbcType=INTEGER}, #{stoUserId,jdbcType=INTEGER}, #{stoBabyId,jdbcType=INTEGER}, 
+      #{stoLikenum,jdbcType=INTEGER}, #{stoContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.babytree.pojo.Story" >
+    insert into story
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stoId != null" >
+        sto_id,
+      </if>
+      <if test="stoUserId != null" >
+        sto_user_id,
+      </if>
+      <if test="stoBabyId != null" >
+        sto_baby_id,
+      </if>
+      <if test="stoLikenum != null" >
+        sto_likenum,
+      </if>
+      <if test="stoContent != null" >
+        sto_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stoId != null" >
+        #{stoId,jdbcType=INTEGER},
+      </if>
+      <if test="stoUserId != null" >
+        #{stoUserId,jdbcType=INTEGER},
+      </if>
+      <if test="stoBabyId != null" >
+        #{stoBabyId,jdbcType=INTEGER},
+      </if>
+      <if test="stoLikenum != null" >
+        #{stoLikenum,jdbcType=INTEGER},
+      </if>
+      <if test="stoContent != null" >
+        #{stoContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.babytree.pojo.Story" >
+    update story
+    <set >
+      <if test="stoUserId != null" >
+        sto_user_id = #{stoUserId,jdbcType=INTEGER},
+      </if>
+      <if test="stoBabyId != null" >
+        sto_baby_id = #{stoBabyId,jdbcType=INTEGER},
+      </if>
+      <if test="stoLikenum != null" >
+        sto_likenum = #{stoLikenum,jdbcType=INTEGER},
+      </if>
+      <if test="stoContent != null" >
+        sto_content = #{stoContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where sto_id = #{stoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.qfedu.babytree.pojo.Story" >
+    update story
+    set sto_user_id = #{stoUserId,jdbcType=INTEGER},
+      sto_baby_id = #{stoBabyId,jdbcType=INTEGER},
+      sto_likenum = #{stoLikenum,jdbcType=INTEGER},
+      sto_content = #{stoContent,jdbcType=LONGVARCHAR}
+    where sto_id = #{stoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.babytree.pojo.Story" >
+    update story
+    set sto_user_id = #{stoUserId,jdbcType=INTEGER},
+      sto_baby_id = #{stoBabyId,jdbcType=INTEGER},
+      sto_likenum = #{stoLikenum,jdbcType=INTEGER}
+    where sto_id = #{stoId,jdbcType=INTEGER}
+  </update>
+</mapper>

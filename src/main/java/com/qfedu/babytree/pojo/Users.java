@@ -1,7 +1,5 @@
 package com.qfedu.babytree.pojo;
 
-import java.util.Date;
-
 public class Users {
     private Integer userId;
 
@@ -15,7 +13,7 @@ public class Users {
 
     private Integer userSex;
 
-    private Date userBirth;
+    private String userBirth;
 
     private String userAddress;
 
@@ -23,7 +21,7 @@ public class Users {
 
     private Integer userState;
 
-    private Date userDuedate;
+    private String userDuedate;
 
     private String userImgurl;
 
@@ -75,12 +73,12 @@ public class Users {
         this.userSex = userSex;
     }
 
-    public Date getUserBirth() {
+    public String getUserBirth() {
         return userBirth;
     }
 
-    public void setUserBirth(Date userBirth) {
-        this.userBirth = userBirth;
+    public void setUserBirth(String userBirth) {
+        this.userBirth = userBirth == null ? null : userBirth.trim();
     }
 
     public String getUserAddress() {
@@ -107,12 +105,12 @@ public class Users {
         this.userState = userState;
     }
 
-    public Date getUserDuedate() {
+    public String getUserDuedate() {
         return userDuedate;
     }
 
-    public void setUserDuedate(Date userDuedate) {
-        this.userDuedate = userDuedate;
+    public void setUserDuedate(String userDuedate) {
+        this.userDuedate = userDuedate == null ? null : userDuedate.trim();
     }
 
     public String getUserImgurl() {
@@ -132,11 +130,11 @@ public class Users {
                 ", userNickname='" + userNickname + '\'' +
                 ", userPassword='" + userPassword + '\'' +
                 ", userSex=" + userSex +
-                ", userBirth=" + userBirth +
+                ", userBirth='" + userBirth + '\'' +
                 ", userAddress='" + userAddress + '\'' +
                 ", userLevel=" + userLevel +
                 ", userState=" + userState +
-                ", userDuedate=" + userDuedate +
+                ", userDuedate='" + userDuedate + '\'' +
                 ", userImgurl='" + userImgurl + '\'' +
                 '}';
     }
