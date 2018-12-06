@@ -8,13 +8,13 @@
     <result column="clas_teatel" property="clasTeatel" jdbcType="VARCHAR" />
     <result column="clas_typeid" property="clasTypeid" jdbcType="INTEGER" />
     <result column="clas_state" property="clasState" jdbcType="INTEGER" />
-    <result column=" clas_desc" property="clasDesc" jdbcType="VARCHAR" />
+    <result column="clas_desc" property="clasDesc" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.qfedu.babytree.pojo.Classes" extends="BaseResultMap" >
     <result column="clas_url" property="clasUrl" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    clas_id, clas_name, clas_teacher, clas_teatel, clas_typeid, clas_state, " clas_desc"
+    clas_id, clas_name, clas_teacher, clas_teatel, clas_typeid, clas_state, "clas_desc"
   </sql>
   <sql id="Blob_Column_List" >
     clas_url
@@ -34,7 +34,7 @@
   <insert id="insert" parameterType="com.qfedu.babytree.pojo.Classes" >
     insert into classes (clas_id, clas_name, clas_teacher, 
       clas_teatel, clas_typeid, clas_state, 
-      " clas_desc", clas_url)
+      "clas_desc", clas_url)
     values (#{clasId,jdbcType=INTEGER}, #{clasName,jdbcType=VARCHAR}, #{clasTeacher,jdbcType=VARCHAR}, 
       #{clasTeatel,jdbcType=VARCHAR}, #{clasTypeid,jdbcType=INTEGER}, #{clasState,jdbcType=INTEGER}, 
       #{clasDesc,jdbcType=VARCHAR}, #{clasUrl,jdbcType=LONGVARCHAR})
@@ -61,7 +61,7 @@
         clas_state,
       </if>
       <if test="clasDesc != null" >
-        " clas_desc",
+        "clas_desc",
       </if>
       <if test="clasUrl != null" >
         clas_url,
@@ -113,7 +113,7 @@
         clas_state = #{clasState,jdbcType=INTEGER},
       </if>
       <if test="clasDesc != null" >
-        " clas_desc" = #{clasDesc,jdbcType=VARCHAR},
+        "clas_desc" = #{clasDesc,jdbcType=VARCHAR},
       </if>
       <if test="clasUrl != null" >
         clas_url = #{clasUrl,jdbcType=LONGVARCHAR},
@@ -128,7 +128,7 @@
       clas_teatel = #{clasTeatel,jdbcType=VARCHAR},
       clas_typeid = #{clasTypeid,jdbcType=INTEGER},
       clas_state = #{clasState,jdbcType=INTEGER},
-      " clas_desc" = #{clasDesc,jdbcType=VARCHAR},
+      "clas_desc" = #{clasDesc,jdbcType=VARCHAR},
       clas_url = #{clasUrl,jdbcType=LONGVARCHAR}
     where clas_id = #{clasId,jdbcType=INTEGER}
   </update>
@@ -139,7 +139,15 @@
       clas_teatel = #{clasTeatel,jdbcType=VARCHAR},
       clas_typeid = #{clasTypeid,jdbcType=INTEGER},
       clas_state = #{clasState,jdbcType=INTEGER},
-      " clas_desc" = #{clasDesc,jdbcType=VARCHAR}
+      "clas_desc" = #{clasDesc,jdbcType=VARCHAR}
     where clas_id = #{clasId,jdbcType=INTEGER}
   </update>
+
+  <!--查询所有的课程信息-->
+  <select id="selectAll" resultType="map">
+SELECT classes.clas_id as clasId, classes.clas_name as clasName, classes.clas_url as clasUrl,classes.clas_teacher as clasTeacher,
+classes.clas_state as clasState, classtype.cls_type_name as clsTypeName,classes.clas_desc
+from classes INNER JOIN classtype
+on classes.clas_typeid = classtype.cls_type_id
+  </select>
 </mapper>
