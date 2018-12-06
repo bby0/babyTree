@@ -15,7 +15,7 @@ public class ResultUtil {
     //操作成功
     public static ResultBean setOK(String msg, Object data){
         ResultBean resultBean=new ResultBean();
-        resultBean.setCode(100000);
+        resultBean.setCode(1000);
         resultBean.setData(data);
         resultBean.setMsg(msg);
         return resultBean;
@@ -32,7 +32,7 @@ public class ResultUtil {
     //操作成功
     public static PageBean setPageOK(int page, int limit, int count, List<Object> data){
         PageBean pageBean=new PageBean();
-        pageBean.setCode(100000);
+        pageBean.setCode(1000);
         pageBean.setData(data);
         pageBean.setMsg("OK");
         pageBean.setCurrpage(page);
