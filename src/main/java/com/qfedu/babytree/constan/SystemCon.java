@@ -3,7 +3,7 @@ package com.qfedu.babytree.constan;
 
 public class SystemCon {
     //返回码
-    public static final int ROK=100000;
+    public static final int ROK=1000;
     public static final int RERROR1=100001;
     public static final int RERROR2=100002;
     public static final int RERROR3=100003;
