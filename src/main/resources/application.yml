@@ -14,6 +14,8 @@ spring:
     password: peng
   session:
       store-type: redis
+  aop:
+    proxy-target-class: true
 
 
 #  jpa:
@@ -31,6 +33,8 @@ pagehelper:
 6     supportMethodsArguments: true
 7     pageSizeZero: true
 8     params: count=countSql
+
+
 
 
 
