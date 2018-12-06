@@ -13,5 +13,7 @@ public interface ClassesMapper {
 
     int updateByPrimaryKeySelective(Classes record);
 
+    int updateByPrimaryKeyWithBLOBs(Classes record);
+
     int updateByPrimaryKey(Classes record);
 }

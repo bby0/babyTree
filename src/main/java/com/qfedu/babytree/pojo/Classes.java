@@ -13,6 +13,10 @@ public class Classes {
 
     private Integer clasState;
 
+    private String clasDesc;
+
+    private String clasUrl;
+
     public Integer getClasId() {
         return clasId;
     }
@@ -59,5 +63,21 @@ public class Classes {
 
     public void setClasState(Integer clasState) {
         this.clasState = clasState;
+    }
+
+    public String getClasDesc() {
+        return clasDesc;
+    }
+
+    public void setClasDesc(String clasDesc) {
+        this.clasDesc = clasDesc == null ? null : clasDesc.trim();
+    }
+
+    public String getClasUrl() {
+        return clasUrl;
+    }
+
+    public void setClasUrl(String clasUrl) {
+        this.clasUrl = clasUrl == null ? null : clasUrl.trim();
     }
 }

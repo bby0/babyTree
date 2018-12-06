@@ -104,4 +104,15 @@
       sto_likenum = #{stoLikenum,jdbcType=INTEGER}
     where sto_id = #{stoId,jdbcType=INTEGER}
   </update>
+
+  <select id="selectStory">
+
+    select user_id ,user_nickname,user_imgurl,
+    sto_content ,sto_likenum,img_url
+    from users INNER JOIN story ON user_id = sto_user_id LEFT OUTER JOIN imgs on sto_id = story_id WHERE user_id in
+
+(SELECT no_noticeid FROM notice WHERE no_userid = #{id}
+)
+
+  </select>
 </mapper>
