@@ -44,4 +44,10 @@ public class UserServiceImpl implements UserService {
             return ResultUtil.setError(SystemCon.RERROR1,"已经存在",null);
         }
     }
+
+    @Override
+    public ResultBean selectByUserid(Integer userId) {
+
+        return ResultUtil.setOK("OK",usersMapper.selectByPrimaryKey(userId));
+    }
 }

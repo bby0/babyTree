@@ -2,6 +2,7 @@ package com.qfedu.babytree.mapper;
 
 import com.qfedu.babytree.pojo.Sign;
 
+
 public interface SignMapper {
     int deleteByPrimaryKey(Integer sigId);
 
@@ -14,4 +15,10 @@ public interface SignMapper {
     int updateByPrimaryKeySelective(Sign record);
 
     int updateByPrimaryKey(Sign record);
+
+    Sign selectByUserid(Integer sigUserid);
+
+    int insertByUserid(Integer sigUserid);
+
+    int updateByUserid(Integer sigUserid);
 }

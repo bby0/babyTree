@@ -79,4 +79,29 @@
       sig_time = #{sigTime,jdbcType=INTEGER}
     where sig_id = #{sigId,jdbcType=INTEGER}
   </update>
+
+
+  <!--根据用户id查找是否有过签到信息-->
+  <select id="selectByUserid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from sign
+    where sig_userid = #{sigUserid,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertByUserid"  >
+    insert into sign (sig_userid, sig_times,
+      sig_time)
+    values (#{sigUserid,jdbcType=INTEGER}, 1,
+      UNIX_TIMESTAMP(NOW()))
+  </insert>
+
+  <update id="updateByUserid" >
+    update sign
+    set
+      sig_times = sig_times + 1,
+      sig_time = UNIX_TIMESTAMP(NOW())
+    where sig_userid = #{sigUserid,jdbcType=INTEGER}
+  </update>
+
 </mapper>

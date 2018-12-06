@@ -10,4 +10,7 @@ public interface UserService {
     //校验昵称或手机号是否重复
     ResultBean checkRepeat(String name);
 
+    //根据用户的id查询用户的信息
+    ResultBean selectByUserid(Integer userId);
+
 }
