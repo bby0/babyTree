@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
             usersLog.setContent("完成注册"+user.getUserNickname());
 
             usersLogMapper.insert(usersLog);
+            rb.setData(user);
             return rb;
         }
 

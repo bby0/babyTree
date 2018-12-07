@@ -2,6 +2,8 @@ package com.qfedu.babytree.mapper;
 
 import com.qfedu.babytree.pojo.Story;
 
+import java.util.List;
+
 public interface StoryMapper {
     int deleteByPrimaryKey(Integer stoId);
 
@@ -16,4 +18,7 @@ public interface StoryMapper {
     int updateByPrimaryKeyWithBLOBs(Story record);
 
     int updateByPrimaryKey(Story record);
+    //查询所有故事
+    List<Story> selectStory(Integer id);
+
 }

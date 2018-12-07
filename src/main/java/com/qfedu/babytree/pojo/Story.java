@@ -11,6 +11,26 @@ public class Story {
 
     private String stoContent;
 
+    private Users users;
+
+    private Imgs imgsl;
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
+
+    public Imgs getImgsl() {
+        return imgsl;
+    }
+
+    public void setImgsl(Imgs imgsl) {
+        this.imgsl = imgsl;
+    }
+
     public Integer getStoId() {
         return stoId;
     }

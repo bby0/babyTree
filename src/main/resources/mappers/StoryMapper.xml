@@ -105,7 +105,26 @@
     where sto_id = #{stoId,jdbcType=INTEGER}
   </update>
 
-  <select id="selectStory">
+
+  <resultMap id="story" type="com.qfedu.babytree.pojo.Story" extends="BaseResultMap">
+    <id column="sto_id" property="stoId" jdbcType="INTEGER"></id>
+
+    <association property="users" javaType="com.qfedu.babytree.pojo.Users">
+      <id column="user_id" property="id"></id>
+      <result column="user_nickname" property="userNickname"/>
+      <result column="user_imgurl" property="userImgurl"/>
+    </association>
+
+    <collection property="imgs" ofType="com.qfedu.babytree.pojo.Imgs">
+      <id column="img_id" property="imgId" jdbcType="INTEGER" />
+      <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+      <result column="story_id" property="storyId" jdbcType="INTEGER" />
+
+    </collection>
+
+  </resultMap>
+
+  <select id="selectStory" resultMap="story">
 
     select user_id ,user_nickname,user_imgurl,
     sto_content ,sto_likenum,img_url
