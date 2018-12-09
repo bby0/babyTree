@@ -53,8 +53,7 @@ public class SignServiceImpl implements SignService {
         }
 
         //再次查询用户的签到信息,并进行返回给前端
-        Sign sign1 = signMapper.selectByUserid(sigUserid);
-        return i > 0 ? ResultUtil.setOK("签到成功", sign1) : ResultUtil.setError(SystemCon.RERROR1, "签到失败", null);
+        return i > 0 ? ResultUtil.setOK("签到成功", signMapper.selectByUserid(sigUserid)) : ResultUtil.setError(SystemCon.RERROR1, "签到失败", null);
     }
 
 }
