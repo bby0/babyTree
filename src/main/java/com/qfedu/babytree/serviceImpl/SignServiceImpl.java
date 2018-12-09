@@ -33,11 +33,9 @@ public class SignServiceImpl implements SignService {
             //如果签到过，
             // 取出上次签到的时间（1）
             long sigTime = (long)signMapper.selectByUserid(sigUserid).getSigTime();
-            System.out.println("上次签到时间：" + sigTime);
 
             //获取当前时间的00:00的时间戳（2）
             long zero = (System.currentTimeMillis()/(1000*3600*24)*(1000*3600*24) - TimeZone.getDefault().getRawOffset())/1000;
-            System.out.println("今日的00:00时间：" + zero);
 
             //时间1 和 时间2 进行比较
             if (sigTime < zero) {
