@@ -1,6 +1,7 @@
 package com.qfedu.babytree.controller;
 
 import com.qfedu.babytree.constan.SystemCon;
+import com.qfedu.babytree.pojo.Users;
 import com.qfedu.babytree.util.OSSUtil;
 import com.qfedu.babytree.util.ResultUtil;
 import com.qfedu.babytree.vo.ResultBean;
@@ -22,7 +23,8 @@ public class OSSController {
     private OSSUtil ossUtil;
     //文件上传
     @PostMapping("ossupload")
-    public ResultBean upload(MultipartFile file) throws IOException {
+    public ResultBean upload(Users users, MultipartFile file) throws IOException {
+        System.out.println(users);
         if(!file.isEmpty()){
             String path=ossUtil.fileUp(file.getOriginalFilename(),file.getBytes());
             System.out.println("文件地址:"+path);

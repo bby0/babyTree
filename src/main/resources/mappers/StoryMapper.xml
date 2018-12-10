@@ -110,7 +110,7 @@
     <id column="sto_id" property="stoId" jdbcType="INTEGER"></id>
 
     <association property="users" javaType="com.qfedu.babytree.pojo.Users">
-      <id column="user_id" property="id"></id>
+      <id column="user_id" property="userId"></id>
       <result column="user_nickname" property="userNickname"/>
       <result column="user_imgurl" property="userImgurl"/>
     </association>
@@ -126,12 +126,18 @@
 
   <select id="selectStory" resultMap="story">
 
-    select user_id ,user_nickname,user_imgurl,
-    sto_content ,sto_likenum,img_url
+      select user_id ,user_nickname,user_imgurl,
+    sto_content ,sto_likenum,sto_time,img_url,sto_id
     from users INNER JOIN story ON user_id = sto_user_id LEFT OUTER JOIN imgs on sto_id = story_id WHERE user_id in
 
-(SELECT no_noticeid FROM notice WHERE no_userid = #{id}
-)
+(SELECT no_noticeid FROM notice WHERE no_userid = #{uid}) order by sto_time desc
 
   </select>
+
+  <update id="giveLike">
+
+    update story set sto_likenum = sto_likenum + 1 where sto_user_id = #{arg0} and sto_id = #{arg1}
+
+
+  </update>
 </mapper>

@@ -13,7 +13,7 @@ public class Story {
 
     private Users users;
 
-    private Imgs imgsl;
+    private Imgs imgs;
 
     public Users getUsers() {
         return users;
@@ -23,12 +23,12 @@ public class Story {
         this.users = users;
     }
 
-    public Imgs getImgsl() {
-        return imgsl;
+    public Imgs getImgs() {
+        return imgs;
     }
 
-    public void setImgsl(Imgs imgsl) {
-        this.imgsl = imgsl;
+    public void setImgs(Imgs imgs) {
+        this.imgs = imgs;
     }
 
     public Integer getStoId() {

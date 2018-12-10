@@ -40,7 +40,7 @@ public class UserController {
         return userService.save(user,request.getRemoteAddr());
     }
 
-    @GetMapping("usercheck")
+    @PostMapping("usercheck")
     public ResultBean checkName(String userNickname){
         return userService.checkRepeat(userNickname);
     }
