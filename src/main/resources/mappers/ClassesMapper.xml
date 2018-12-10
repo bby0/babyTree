@@ -144,10 +144,15 @@
   </update>
 
   <!--查询所有的课程信息-->
-  <select id="selectAll" resultType="map">
+  <select id="selectAll" resultType="map" parameterType="java.lang.Integer">
 SELECT classes.clas_id as clasId, classes.clas_name as clasName, classes.clas_url as clasUrl,classes.clas_teacher as clasTeacher,
 classes.clas_state as clasState, classtype.cls_type_name as clsTypeName,classes.clas_desc
 from classes INNER JOIN classtype
 on classes.clas_typeid = classtype.cls_type_id
+<where>
+  <if test="_parameter!=null">
+    clas_id = #{_parameter}
+  </if>
+</where>
   </select>
 </mapper>

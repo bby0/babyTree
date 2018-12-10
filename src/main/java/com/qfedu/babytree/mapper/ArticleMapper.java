@@ -2,6 +2,8 @@ package com.qfedu.babytree.mapper;
 
 import com.qfedu.babytree.pojo.Article;
 
+import java.util.List;
+
 public interface ArticleMapper {
     int deleteByPrimaryKey(Integer artId);
 
@@ -16,4 +18,7 @@ public interface ArticleMapper {
     int updateByPrimaryKeyWithBLOBs(Article record);
 
     int updateByPrimaryKey(Article record);
+
+    //查询所有文章
+    List<Article> selectAllArticle();
 }

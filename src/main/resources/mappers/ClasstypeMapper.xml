@@ -55,4 +55,10 @@
     set cls_type_name = #{clsTypeName,jdbcType=VARCHAR}
     where cls_type_id = #{clsTypeId,jdbcType=INTEGER}
   </update>
+
+  <!--查询所有的课程类型-->
+  <select id="selectTypeAll" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from classtype
+  </select>
 </mapper>

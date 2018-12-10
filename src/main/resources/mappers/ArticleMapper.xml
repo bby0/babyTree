@@ -80,4 +80,9 @@
     set art_title = #{artTitle,jdbcType=VARCHAR}
     where art_id = #{artId,jdbcType=INTEGER}
   </update>
+
+  <!--查询所有文章-->
+  <select id="selectAllArticle" resultMap="ResultMapWithBLOBs">
+    select * from article
+  </select>
 </mapper>
