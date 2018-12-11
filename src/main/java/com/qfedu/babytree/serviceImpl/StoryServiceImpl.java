@@ -62,8 +62,8 @@ public class StoryServiceImpl implements StoryService {
     @Override
     public ResultBean getMySpaceInfo(Integer uid) {
 
-        if(storyMapper.getSpaceInfo(uid)!=null){
-            return ResultUtil.setOK("获取成功",storyMapper.getSpaceInfo(uid));
+        if(storyMapper.getMySpaceinfo(uid)!=null){
+            return ResultUtil.setOK("获取成功",storyMapper.getMySpaceinfo(uid));
         }else {
             return ResultUtil.setError(SystemCon.RERROR1,"获取失败",null);
         }

@@ -24,7 +24,7 @@ public interface StoryMapper {
     //点赞
     int giveLike(Integer uid, Integer tid);
     //我的社区空间头部
-    List<Map<String,Object>> getSpaceInfo(Integer uid);
+    List<Map<String,Object>> getMySpaceinfo(Integer uid);
     //查询我的故事
     List<Story> getmyStory(Integer uid);
 
