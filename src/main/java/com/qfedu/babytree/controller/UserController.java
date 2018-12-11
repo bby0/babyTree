@@ -40,9 +40,9 @@ public class UserController {
         return userService.save(user,request.getRemoteAddr());
     }
 
-    @PostMapping("usercheck")
-    public ResultBean checkName(String userNickname){
-        return userService.checkRepeat(userNickname);
+    @GetMapping("usercheck")
+    public ResultBean checkName(String name){
+        return userService.checkRepeat(name);
     }
 
     //获取用户的信息
@@ -68,6 +68,14 @@ public class UserController {
         Integer userId = user.getUserId();
 
         return signService.signUser(userId);
+    }
+
+
+    //修改用户的个人信息
+    @PostMapping("updataUserInfo")
+    public ResultBean updataUserInfo (Users users) {
+        System.out.println("user:" + users);
+        return userService.updataUserInfo(stringRedisTemplate, users);
     }
 
 }
