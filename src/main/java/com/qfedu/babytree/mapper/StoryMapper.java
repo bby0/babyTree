@@ -19,6 +19,8 @@ public interface StoryMapper {
 
     int updateByPrimaryKey(Story record);
     //查询所有故事
-    List<Story> selectStory(Integer id);
+    List<Story> selectStory(Integer uid);
+    //点赞
+    int giveLike(Integer uid, Integer tid);
 
 }

@@ -70,4 +70,12 @@ public class UserController {
         return signService.signUser(userId);
     }
 
+
+    //修改用户的个人信息
+    @PostMapping("updataUserInfo")
+    public ResultBean updataUserInfo (Users users) {
+        System.out.println("user:" + users);
+        return userService.updataUserInfo(stringRedisTemplate, users);
+    }
+
 }
