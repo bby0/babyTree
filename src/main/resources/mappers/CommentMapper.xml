@@ -5,10 +5,12 @@
     <id column="comm_id" property="commId" jdbcType="INTEGER" />
     <result column="comm_content" property="commContent" jdbcType="VARCHAR" />
     <result column="comm_likenum" property="commLikenum" jdbcType="INTEGER" />
+    <result column="comm_time" property="commTime" jdbcType="TIMESTAMP" />
     <result column="story_id" property="storyId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    comm_id, comm_content, comm_likenum, story_id
+    comm_id, comm_content, comm_likenum, comm_time, story_id, user_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -22,9 +24,11 @@
   </delete>
   <insert id="insert" parameterType="com.qfedu.babytree.pojo.Comment" >
     insert into comment (comm_id, comm_content, comm_likenum, 
-      story_id)
+      comm_time, story_id, user_id
+      )
     values (#{commId,jdbcType=INTEGER}, #{commContent,jdbcType=VARCHAR}, #{commLikenum,jdbcType=INTEGER}, 
-      #{storyId,jdbcType=INTEGER})
+      #{commTime,jdbcType=TIMESTAMP}, #{storyId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.qfedu.babytree.pojo.Comment" >
     insert into comment
@@ -38,8 +42,14 @@
       <if test="commLikenum != null" >
         comm_likenum,
       </if>
+      <if test="commTime != null" >
+        comm_time,
+      </if>
       <if test="storyId != null" >
         story_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -52,8 +62,14 @@
       <if test="commLikenum != null" >
         #{commLikenum,jdbcType=INTEGER},
       </if>
+      <if test="commTime != null" >
+        #{commTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="storyId != null" >
         #{storyId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -66,8 +82,14 @@
       <if test="commLikenum != null" >
         comm_likenum = #{commLikenum,jdbcType=INTEGER},
       </if>
+      <if test="commTime != null" >
+        comm_time = #{commTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="storyId != null" >
         story_id = #{storyId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
       </if>
     </set>
     where comm_id = #{commId,jdbcType=INTEGER}
@@ -76,7 +98,9 @@
     update comment
     set comm_content = #{commContent,jdbcType=VARCHAR},
       comm_likenum = #{commLikenum,jdbcType=INTEGER},
-      story_id = #{storyId,jdbcType=INTEGER}
+      comm_time = #{commTime,jdbcType=TIMESTAMP},
+      story_id = #{storyId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER}
     where comm_id = #{commId,jdbcType=INTEGER}
   </update>
 </mapper>
