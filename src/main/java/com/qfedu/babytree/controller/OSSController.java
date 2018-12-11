@@ -24,7 +24,9 @@ public class OSSController {
     //文件上传
     @PostMapping("ossupload")
     public ResultBean upload(Users users, MultipartFile file) throws IOException {
-        System.out.println(users);
+        System.out.println("用户"+users);
+        System.out.println("文件"+file);
+
         if(!file.isEmpty()){
             String path=ossUtil.fileUp(file.getOriginalFilename(),file.getBytes());
             System.out.println("文件地址:"+path);

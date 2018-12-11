@@ -140,4 +140,31 @@
 
 
   </update>
+
+
+  <resultMap id="spaceInfo" type="com.qfedu.babytree.pojo.Users">
+
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_nickname" property="userNickname" jdbcType="VARCHAR" />
+    <result column="user_imgurl" property="userImgurl" jdbcType="LONGVARCHAR" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+
+
+  </resultMap>
+
+  <select id="getMySpaceinfo" resultMap="spaceInfo">
+
+    SELECT user_id,users.user_imgurl,users.user_nickname,(SELECT count(1) from notice WHERE no_userid = #{uid} )AS count FROM users WHERE user_id = #{uid}
+
+  </select>
+  
+  <select id="getmyStory" resultMap="story">
+
+    selectselect user_id ,user_nickname,user_imgurl,
+    sto_content ,sto_likenum,sto_time,img_url,sto_id from users INNER JOIN story ON user_id = sto_user_id LEFT OUTER JOIN imgs on sto_id = story_id WHERE user_id = #{uid}
+
+  </select>
+
+
+
 </mapper>

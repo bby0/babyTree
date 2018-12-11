@@ -45,6 +45,27 @@ public class StoryController {
 
     }
 
+    @GetMapping("/mySpaceInfo")
+    public ResultBean getMySpaceInfo(){
+        ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
+        Users user = JSON.parseObject(TokenUtil.parseToken(ops.get(SystemCon.TOKENHASH)).getContent(), Users.class);
+        Integer uid = user.getUserId();
+
+        return storyService.getMySpaceInfo(uid);
+
+    }
+
+    @GetMapping("/myStory")
+    public ResultBean getMyStory(){
+
+        ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
+        Users user = JSON.parseObject(TokenUtil.parseToken(ops.get(SystemCon.TOKENHASH)).getContent(), Users.class);
+        Integer uid = user.getUserId();
+
+        return storyService.getMyStory(uid);
+    }
+
+
 
 
 
