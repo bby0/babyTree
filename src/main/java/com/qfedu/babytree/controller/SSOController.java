@@ -55,7 +55,6 @@ public class SSOController {
     //检查是否登录
     @GetMapping("userlogincheck")
     public ResultBean check(HttpServletRequest request, HttpServletResponse response){
-
         String tk=CookieUtil.getCk(request,SystemCon.TOKECOOKIE);
         ResultBean resultBean=ssoService.checkLogin(tk);
         System.out.println(1);

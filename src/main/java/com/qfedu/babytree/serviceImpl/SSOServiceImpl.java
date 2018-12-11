@@ -37,7 +37,6 @@ public class SSOServiceImpl implements SSOService {
     @Autowired
     private RedisUtil redisUtil;
 
-
     @Override
     public ResultBean login(String name, String password,String ip) {
         ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
