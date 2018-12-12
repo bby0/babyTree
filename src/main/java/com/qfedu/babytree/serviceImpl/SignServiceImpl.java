@@ -56,4 +56,20 @@ public class SignServiceImpl implements SignService {
         return i > 0 ? ResultUtil.setOK("签到成功", signMapper.selectByUserid(sigUserid)) : ResultUtil.setError(SystemCon.RERROR1, "签到失败", null);
     }
 
+    @Override
+    public ResultBean reduceTimesByUserid(Sign sign) {
+        //首先获取用户当前的积分
+        int times = signMapper.selectByUserid(sign.getSigUserid()).getSigTimes();
+        //进行判断
+        if (times > sign.getSigTimes()) {
+
+            //可以兑换
+            return ResultUtil.setOK("兑换成功", signMapper.reduceTimesByUserid(sign));
+        } else {
+            //积分不足
+            return ResultUtil.setError(SystemCon.RERROR1,"积分不足", null);
+        }
+
+    }
+
 }

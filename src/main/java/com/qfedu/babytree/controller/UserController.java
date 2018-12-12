@@ -10,6 +10,7 @@ import com.qfedu.babytree.service.UserService;
 import com.qfedu.babytree.token.Token;
 import com.qfedu.babytree.token.TokenUtil;
 import com.qfedu.babytree.util.ResultUtil;
+import com.qfedu.babytree.util.UserUtil;
 import com.qfedu.babytree.vo.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -76,6 +77,23 @@ public class UserController {
     public ResultBean updataUserInfo (Users users) {
         System.out.println("user:" + users);
         return userService.updataUserInfo(stringRedisTemplate, users);
+    }
+
+    //积分兑换会员
+    @PostMapping("exchangeVip")
+    public ResultBean exchangeVip (Sign sign) {
+        sign.setSigUserid(UserUtil.getUserId(stringRedisTemplate));
+        ResultBean resultBean = signService.reduceTimesByUserid(sign);
+
+        if (resultBean.getCode() == SystemCon.ROK) {
+            //兑换成功后将用户设置为会员
+            Users users = new Users();
+            users.setUserLevel(1);
+            return ResultUtil.setOK("兑换成功", userService.updataUserInfo(stringRedisTemplate, users));
+        } else {
+            return resultBean;
+        }
+
     }
 
 }

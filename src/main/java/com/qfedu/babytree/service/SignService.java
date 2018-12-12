@@ -9,4 +9,7 @@ public interface SignService {
 
     //根据用户id新插入用户的签到记录
     public ResultBean signUser(Integer sigUserid);
+
+    //根据传入的积分对用户的积分进行
+    public ResultBean reduceTimesByUserid (Sign sign);
 }
