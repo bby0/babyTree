@@ -1,6 +1,7 @@
 package com.qfedu.babytree.mapper;
 
 import com.qfedu.babytree.pojo.Classes;
+import com.qfedu.babytree.pojo.Classtype;
 
 import java.util.List;
 import java.util.Map;
@@ -21,5 +22,5 @@ public interface ClassesMapper {
     int updateByPrimaryKey(Classes record);
 
     //查询所有课程信息
-    List<Map<Object,String>> selectAll(int clasId);
+    List<Map<Object,String>> selectAll(Classtype classtype);
 }

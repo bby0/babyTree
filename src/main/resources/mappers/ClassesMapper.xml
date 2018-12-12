@@ -150,8 +150,8 @@ classes.clas_state as clasState, classtype.cls_type_name as clsTypeName,classes.
 from classes INNER JOIN classtype
 on classes.clas_typeid = classtype.cls_type_id
 <where>
-  <if test="_parameter!=null">
-    clas_id = #{_parameter}
+  <if test="clsTypeId!=null">
+    cls_type_id = #{clsTypeId}
   </if>
 </where>
   </select>
