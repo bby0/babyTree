@@ -1,5 +1,7 @@
 package com.qfedu.babytree.controller;
 
+import com.qfedu.babytree.pojo.Classes;
+import com.qfedu.babytree.pojo.Classtype;
 import com.qfedu.babytree.service.ClassService;
 import com.qfedu.babytree.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +15,7 @@ public class ClassesController {
     private ClassService classService;
 
     @GetMapping("classes")
-    public ResponseVo classesList(String pageNum, String pageSize,@RequestParam("clasId") Integer clasId){
-        System.out.println("clasId的值： "+clasId);
-       return classService.classesList(pageNum,pageSize,clasId);
+    public ResponseVo classesList(String pageNum, String pageSize, Classtype classtype){
+       return classService.classesList(pageNum,pageSize,classtype);
     }
 }
