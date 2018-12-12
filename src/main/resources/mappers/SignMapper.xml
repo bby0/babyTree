@@ -104,4 +104,13 @@
     where sig_userid = #{sigUserid,jdbcType=INTEGER}
   </update>
 
+
+
+  <!--根据传入的积分对用户的积分进行-兑换-->
+  <update id="reduceTimesByUserid" parameterType="com.qfedu.babytree.pojo.Sign" >
+    update sign
+    set
+      sig_times = (sig_times - #{sigTimes,jdbcType=INTEGER})
+    where sig_userid = #{sigUserid,jdbcType=INTEGER}
+  </update>
 </mapper>

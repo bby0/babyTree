@@ -21,4 +21,6 @@ public interface SignMapper {
     int insertByUserid(Integer sigUserid);
 
     int updateByUserid(Integer sigUserid);
+
+    int reduceTimesByUserid(Sign sign);
 }
