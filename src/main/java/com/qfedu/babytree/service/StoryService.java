@@ -10,5 +10,9 @@ public interface StoryService {
 
     ResultBean giveLike(Integer uid,Integer tid);
 
+    ResultBean getMySpaceInfo(Integer uid);
+
+    ResultBean getMyStory(Integer uid);
+
 
 }

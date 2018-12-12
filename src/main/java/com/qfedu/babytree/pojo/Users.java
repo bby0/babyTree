@@ -25,6 +25,16 @@ public class Users {
 
     private String userImgurl;
 
+    private Integer count;
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
     public Integer getUserId() {
         return userId;
     }
