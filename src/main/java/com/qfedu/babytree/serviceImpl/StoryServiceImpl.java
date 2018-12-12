@@ -3,7 +3,9 @@ package com.qfedu.babytree.serviceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.qfedu.babytree.constan.SystemCon;
+import com.qfedu.babytree.mapper.CommentMapper;
 import com.qfedu.babytree.mapper.StoryMapper;
+import com.qfedu.babytree.pojo.Comment;
 import com.qfedu.babytree.pojo.Story;
 import com.qfedu.babytree.service.StoryService;
 import com.qfedu.babytree.util.ResultUtil;
@@ -19,6 +21,9 @@ public class StoryServiceImpl implements StoryService {
 
     @Autowired
     private StoryMapper storyMapper;
+
+    @Autowired
+    private CommentMapper commentMapper;
 
 
     @Override
@@ -62,6 +67,8 @@ public class StoryServiceImpl implements StoryService {
     @Override
     public ResultBean getMySpaceInfo(Integer uid) {
 
+
+
         if(storyMapper.getMySpaceinfo(uid)!=null){
             return ResultUtil.setOK("获取成功",storyMapper.getMySpaceinfo(uid));
         }else {
@@ -73,6 +80,31 @@ public class StoryServiceImpl implements StoryService {
     public ResultBean getMyStory(Integer uid) {
         if(storyMapper.getmyStory(uid)!=null){
             return ResultUtil.setOK("获取成功",storyMapper.getmyStory(uid));
+        }else {
+            return ResultUtil.setError(SystemCon.RERROR1,"获取失败",null);
+        }
+    }
+
+    @Override
+    public ResultBean doComment(Comment comment) {
+        if(commentMapper.doComment(comment)>0){
+            return ResultUtil.setOK("评论成功",null);
+        }else {
+            return ResultUtil.setError(SystemCon.RERROR1,"评论失败",null);
+        }
+    }
+
+    @Override
+    public ResultBean getStoryDetail(Integer stoUserId, Integer stoId) {
+
+//        Integer stoUserid = Integer.valueOf(stoUserId);
+//        Integer stoid = Integer.valueOf(stoUserId);
+
+        //List<Story> data = storyMapper.getStoryDetail(stoUserId,stoId);
+        System.out.println(storyMapper.getStoryDetail(stoUserId,stoId));
+
+        if(storyMapper.getStoryDetail(stoUserId,stoId)!=null){
+            return ResultUtil.setOK("获取成功",storyMapper.getStoryDetail(stoUserId,stoId));
         }else {
             return ResultUtil.setError(SystemCon.RERROR1,"获取失败",null);
         }

@@ -1,5 +1,7 @@
 package com.qfedu.babytree.pojo;
 
+import java.util.List;
+
 public class Story {
     private Integer stoId;
 
@@ -13,7 +15,8 @@ public class Story {
 
     private Users users;
 
-    private Imgs imgs;
+    private List<Imgs> imgs;
+
 
     public Users getUsers() {
         return users;
@@ -23,11 +26,11 @@ public class Story {
         this.users = users;
     }
 
-    public Imgs getImgs() {
+    public List<Imgs> getImgs() {
         return imgs;
     }
 
-    public void setImgs(Imgs imgs) {
+    public void setImgs(List<Imgs> imgs) {
         this.imgs = imgs;
     }
 

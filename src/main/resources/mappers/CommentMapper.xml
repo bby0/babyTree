@@ -103,4 +103,10 @@
       user_id = #{userId,jdbcType=INTEGER}
     where comm_id = #{commId,jdbcType=INTEGER}
   </update>
+  
+  <insert id="doComment">
+
+    insert into comment values (null,#{commContent},#{commLikenum},now(),#{storyId},#{userId})
+
+  </insert>
 </mapper>

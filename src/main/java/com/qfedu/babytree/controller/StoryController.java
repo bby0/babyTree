@@ -3,6 +3,7 @@ package com.qfedu.babytree.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.qfedu.babytree.constan.SystemCon;
+import com.qfedu.babytree.pojo.Comment;
 import com.qfedu.babytree.pojo.Story;
 import com.qfedu.babytree.pojo.Users;
 import com.qfedu.babytree.service.StoryService;
@@ -25,7 +26,12 @@ public class StoryController {
     private StringRedisTemplate stringRedisTemplate;
 
 
-
+    /**
+     * 社区故事（用户所关注的人）
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @GetMapping("/getStorybyUid")
     public ResponseVo<Story> getStory(Integer pageNum, Integer pageSize) {
 
@@ -37,6 +43,13 @@ public class StoryController {
         return storyService.getStory(uid, pageNum, pageSize);
     }
 
+    /**
+     * 点赞
+     * @param uid
+     * @param tid
+     * @return
+     */
+
     @PostMapping("/Like")
     public ResultBean giveLike(Integer uid,Integer tid) {
 
@@ -45,6 +58,10 @@ public class StoryController {
 
     }
 
+    /**
+     * 我的社区故事的头部信息
+     * @return
+     */
     @GetMapping("/mySpaceInfo")
     public ResultBean getMySpaceInfo(){
         ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
@@ -55,6 +72,10 @@ public class StoryController {
 
     }
 
+    /**
+     * 我的社区故事
+     * @return
+     */
     @GetMapping("/myStory")
     public ResultBean getMyStory(){
 
@@ -64,6 +85,42 @@ public class StoryController {
 
         return storyService.getMyStory(uid);
     }
+
+    /**
+     * 评论，需要参数是评论内容，评论的故事id
+     * @param comment
+     * @return
+     */
+    @PostMapping("/doComment")
+    public ResultBean doComment(Comment comment) {
+
+        ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
+        Users user = JSON.parseObject(TokenUtil.parseToken(ops.get(SystemCon.TOKENHASH)).getContent(), Users.class);
+        Integer uid = user.getUserId();
+
+        comment.setUserId(uid);
+
+        return storyService.doComment(comment);
+
+    }
+
+    /**
+     * 说说的详情
+     */
+
+    @GetMapping("/getStoryDetail")
+    public ResultBean getStoryDetail(Integer stoUserId,Integer stoId){
+        System.out.println(stoUserId);
+        System.out.println(stoId);
+
+        return storyService.getStoryDetail(stoUserId,stoId);
+
+    }
+
+
+
+
+
 
 
 

@@ -27,6 +27,8 @@ public interface StoryMapper {
     List<Map<String,Object>> getMySpaceinfo(Integer uid);
     //查询我的故事
     List<Story> getmyStory(Integer uid);
+    //查询故事详情
+    List<Story> getStoryDetail(Integer stoUserId,Integer stoId);
 
 
 }
