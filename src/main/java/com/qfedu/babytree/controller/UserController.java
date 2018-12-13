@@ -42,21 +42,19 @@ public class UserController {
 
 
     @PostMapping("register")
-    public ResultBean save(Users user, HttpServletRequest request)
-
-    {
+    public ResultBean save(Users user, HttpServletRequest request) {
         System.out.println(user.getUserNickname());
-        return userService.save(user,request.getRemoteAddr());
+        return userService.save(user, request.getRemoteAddr());
     }
 
     @GetMapping("usercheck")
-    public ResultBean checkName(String name){
+    public ResultBean checkName(String name) {
         return userService.checkRepeat(name);
     }
 
     //获取用户的信息
     @GetMapping("userInfo")
-    public ResultBean selectUserInfo (HttpServletRequest request) {
+    public ResultBean selectUserInfo(HttpServletRequest request) {
         ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
         //从token中获取用户id信息进行返回
         Token token = TokenUtil.parseToken(ops.get(SystemCon.TOKENHASH));
@@ -82,14 +80,14 @@ public class UserController {
 
     //修改用户的个人信息
     @PostMapping("updataUserInfo")
-    public ResultBean updataUserInfo (Users users) {
+    public ResultBean updataUserInfo(Users users) {
         System.out.println("user:" + users);
         return userService.updataUserInfo(stringRedisTemplate, users);
     }
 
     //积分兑换会员
     @PostMapping("exchangeVip")
-    public ResultBean exchangeVip (Sign sign) {
+    public ResultBean exchangeVip(Sign sign) {
         sign.setSigUserid(UserUtil.getUserId(stringRedisTemplate));
         ResultBean resultBean = signService.reduceTimesByUserid(sign);
 
@@ -105,7 +103,7 @@ public class UserController {
 
     //收藏文章
     @PostMapping("collectArticle")
-    public ResultBean collectArticle (Collection collection) {
+    public ResultBean collectArticle(Collection collection) {
 
         collection.setColUserid(UserUtil.getUserId(stringRedisTemplate));
         return collectionService.CollectArticle(collection);
@@ -114,7 +112,7 @@ public class UserController {
 
     //根据用户id查看当前收藏的文章
     @GetMapping("selectArticlesByUserid")
-    public ResultBean selectArticlesByUserid () {
+    public ResultBean selectArticlesByUserid() {
 
         return collectionService.selectArticlesByUserid(UserUtil.getUserId(stringRedisTemplate));
 
@@ -122,11 +120,11 @@ public class UserController {
 
     //添加该用户的宝宝
     @PostMapping("addBaby")
-    public ResultBean addBaby (Baby baby, MultipartFile file) throws IOException {
+    public ResultBean addBaby(Baby baby, MultipartFile file) throws IOException {
 
         String path = null;
-        if(!file.isEmpty()){
-            path=ossUtil.fileUp(file.getOriginalFilename(),file.getBytes());
+        if (!file.isEmpty()) {
+            path = ossUtil.fileUp(file.getOriginalFilename(), file.getBytes());
             System.out.println("文件" + path);
         }
 
@@ -134,6 +132,27 @@ public class UserController {
         baby.setBabyImgurl(path);
         return babyService.addBaby(baby);
 
+    }
+
+    //根据用户的id查看对应的小宝贝呀~~
+    @GetMapping("selectBabyByUserid")
+    public ResultBean selectBabyByUserid() {
+
+        return babyService.selectByUserid(UserUtil.getUserId(stringRedisTemplate));
+    }
+
+    //根据修改小宝贝的信息呀~~
+    @PostMapping("updateBabyByid")
+    public ResultBean updateBabyByid(Baby baby, MultipartFile file) throws IOException {
+        String path = null;
+        if (!file.isEmpty()) {
+            path = ossUtil.fileUp(file.getOriginalFilename(), file.getBytes());
+            System.out.println("文件" + path);
+        }
+        baby.setUserId(UserUtil.getUserId(stringRedisTemplate));
+        baby.setBabyImgurl(path);
+
+        return babyService.updateBabyByid(baby);
     }
 
 }
