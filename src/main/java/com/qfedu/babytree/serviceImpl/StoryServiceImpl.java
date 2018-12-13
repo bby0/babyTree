@@ -109,4 +109,13 @@ public class StoryServiceImpl implements StoryService {
             return ResultUtil.setError(SystemCon.RERROR1,"获取失败",null);
         }
     }
+
+    @Override
+    public ResultBean getComment(Integer storyId) {
+        if(commentMapper.selectCommentByStoId(storyId)!=null){
+            return ResultUtil.setOK("获取成功",commentMapper.selectCommentByStoId(storyId));
+        }else {
+            return ResultUtil.setError(SystemCon.RERROR1,"获取失败",null);
+        }
+    }
 }

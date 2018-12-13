@@ -109,4 +109,11 @@
     insert into comment values (null,#{commContent},#{commLikenum},now(),#{storyId},#{userId})
 
   </insert>
+
+  <select id="selectCommentByStoId" resultMap="BaseResultMap">
+
+    select * from comment where story_id = #{id}
+
+  </select>
+
 </mapper>

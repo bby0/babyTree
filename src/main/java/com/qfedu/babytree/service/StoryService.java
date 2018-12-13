@@ -19,5 +19,7 @@ public interface StoryService {
 
     ResultBean getStoryDetail(Integer stoUserId,Integer stoId);
 
+    ResultBean getComment(Integer storyId);
+
 
 }

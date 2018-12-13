@@ -87,7 +87,7 @@ public class StoryController {
     }
 
     /**
-     * 评论，需要参数是评论内容，评论的故事id
+     * 评论，需要参数是用户填写的评论内容，评论的故事id
      * @param comment
      * @return
      */
@@ -115,6 +115,15 @@ public class StoryController {
 
         return storyService.getStoryDetail(stoUserId,stoId);
 
+    }
+
+    /**
+     * 获取评论列表
+     */
+    @GetMapping("/getCommentList")
+    public ResultBean getCommentList(Integer stoId) {
+
+        return storyService.getComment(stoId);
     }
 
 
