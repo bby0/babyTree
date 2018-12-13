@@ -2,6 +2,8 @@ package com.qfedu.babytree.mapper;
 
 import com.qfedu.babytree.pojo.Collection;
 
+import java.util.List;
+
 public interface CollectionMapper {
     int deleteByPrimaryKey(Integer colId);
 
@@ -14,4 +16,6 @@ public interface CollectionMapper {
     int updateByPrimaryKeySelective(Collection record);
 
     int updateByPrimaryKey(Collection record);
+
+    List<Collection> selectByUserid(Integer userid);
 }

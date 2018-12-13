@@ -3,8 +3,10 @@ package com.qfedu.babytree.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.qfedu.babytree.constan.SystemCon;
+import com.qfedu.babytree.pojo.Collection;
 import com.qfedu.babytree.pojo.Sign;
 import com.qfedu.babytree.pojo.Users;
+import com.qfedu.babytree.service.CollectionService;
 import com.qfedu.babytree.service.SignService;
 import com.qfedu.babytree.service.UserService;
 import com.qfedu.babytree.token.Token;
@@ -28,6 +30,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private SignService signService;
+    @Autowired
+    private CollectionService collectionService;
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
@@ -93,7 +97,22 @@ public class UserController {
         } else {
             return resultBean;
         }
+    }
+
+    //收藏文章
+    @PostMapping("collectArticle")
+    public ResultBean collectArticle (Collection collection) {
+
+        collection.setColUserid(UserUtil.getUserId(stringRedisTemplate));
+        return collectionService.CollectArticle(collection);
 
     }
 
+    //根据用户id查看当前收藏的文章
+    @GetMapping("selectArticlesByUserid")
+    public ResultBean selectArticlesByUserid () {
+
+        return collectionService.selectArticlesByUserid(UserUtil.getUserId(stringRedisTemplate));
+
+    }
 }

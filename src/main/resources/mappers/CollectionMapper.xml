@@ -68,4 +68,12 @@
       col_artid = #{colArtid,jdbcType=INTEGER}
     where col_id = #{colId,jdbcType=INTEGER}
   </update>
+
+
+  <select id="selectByUserid" resultType="map" parameterType="java.lang.Integer" >
+    SELECT * FROM article
+    LEFT OUTER JOIN collection
+    on collection.col_artid = article.art_id
+    where collection.col_userid = #{colUserid,jdbcType=INTEGER}
+  </select>
 </mapper>
