@@ -3,14 +3,14 @@ package com.qfedu.babytree.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.qfedu.babytree.constan.SystemCon;
+import com.qfedu.babytree.pojo.Baby;
 import com.qfedu.babytree.pojo.Collection;
 import com.qfedu.babytree.pojo.Sign;
 import com.qfedu.babytree.pojo.Users;
-import com.qfedu.babytree.service.CollectionService;
-import com.qfedu.babytree.service.SignService;
-import com.qfedu.babytree.service.UserService;
+import com.qfedu.babytree.service.*;
 import com.qfedu.babytree.token.Token;
 import com.qfedu.babytree.token.TokenUtil;
+import com.qfedu.babytree.util.OSSUtil;
 import com.qfedu.babytree.util.ResultUtil;
 import com.qfedu.babytree.util.UserUtil;
 import com.qfedu.babytree.vo.ResultBean;
@@ -20,8 +20,10 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 @RestController
 public class UserController {
@@ -32,7 +34,10 @@ public class UserController {
     private SignService signService;
     @Autowired
     private CollectionService collectionService;
-
+    @Autowired
+    private BabyService babyService;
+    @Autowired
+    private OSSUtil ossUtil;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
@@ -113,6 +118,22 @@ public class UserController {
     public ResultBean selectArticlesByUserid () {
 
         return collectionService.selectArticlesByUserid(UserUtil.getUserId(stringRedisTemplate));
+
+    }
+
+    //添加该用户的宝宝
+    @PostMapping("addBaby")
+    public ResultBean addBaby (Baby baby, MultipartFile file) throws IOException {
+
+        String path = null;
+        if(!file.isEmpty()){
+            path=ossUtil.fileUp(file.getOriginalFilename(),file.getBytes());
+            System.out.println("文件" + path);
+        }
+
+        baby.setUserId(UserUtil.getUserId(stringRedisTemplate));
+        baby.setBabyImgurl(path);
+        return babyService.addBaby(baby);
 
     }
 }
