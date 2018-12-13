@@ -135,22 +135,5 @@ public class UserController {
         return babyService.addBaby(baby);
 
     }
-    /**
-     * 用户反馈
-     */
-    @PostMapping("/addFeedBack")
-    public ResultBean addFeedBack(Feedback feedback,MultipartFile file) throws IOException {
-        if(!file.isEmpty()){
-            String path=OssUtil.fileUp(file.getOriginalFilename(),file.getBytes());
-            System.out.println("文件地址:"+path);
-            feedback.setFeeImgurl(path);
-            userService.insertSelective(feedback);
-
-            return ResultUtil.setOK("提交成功",path);
-        }else{
-            return ResultUtil.setError(SystemCon.RERROR1,"请选择上传文件",null);
-        }
-
-    }
 
 }
