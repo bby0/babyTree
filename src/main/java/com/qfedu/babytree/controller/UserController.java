@@ -3,10 +3,7 @@ package com.qfedu.babytree.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.qfedu.babytree.constan.SystemCon;
-import com.qfedu.babytree.pojo.Baby;
-import com.qfedu.babytree.pojo.Collection;
-import com.qfedu.babytree.pojo.Sign;
-import com.qfedu.babytree.pojo.Users;
+import com.qfedu.babytree.pojo.*;
 import com.qfedu.babytree.service.*;
 import com.qfedu.babytree.token.Token;
 import com.qfedu.babytree.token.TokenUtil;
@@ -40,6 +37,8 @@ public class UserController {
     private OSSUtil ossUtil;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private OSSUtil OssUtil;
 
 
     @PostMapping("register")
@@ -136,4 +135,22 @@ public class UserController {
         return babyService.addBaby(baby);
 
     }
+    /**
+     * 用户反馈
+     */
+    @PostMapping("/addFeedBack")
+    public ResultBean addFeedBack(Feedback feedback,MultipartFile file) throws IOException {
+        if(!file.isEmpty()){
+            String path=OssUtil.fileUp(file.getOriginalFilename(),file.getBytes());
+            System.out.println("文件地址:"+path);
+            feedback.setFeeImgurl(path);
+            userService.insertSelective(feedback);
+
+            return ResultUtil.setOK("提交成功",path);
+        }else{
+            return ResultUtil.setError(SystemCon.RERROR1,"请选择上传文件",null);
+        }
+
+    }
+
 }

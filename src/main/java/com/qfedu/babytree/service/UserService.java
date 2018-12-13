@@ -1,5 +1,6 @@
 package com.qfedu.babytree.service;
 
+import com.qfedu.babytree.pojo.Feedback;
 import com.qfedu.babytree.pojo.Users;
 import com.qfedu.babytree.vo.ResultBean;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -16,5 +17,8 @@ public interface UserService {
 
     //修改用户的信息
     ResultBean updataUserInfo(StringRedisTemplate stringRedisTemplate, Users users);
+
+    //提交反馈
+    ResultBean insertSelective(Feedback feedback);
 
 }

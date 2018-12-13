@@ -3,6 +3,8 @@ package com.qfedu.babytree.pojo;
 public class Feedback {
     private Integer feeId;
 
+    private String feeImgurl;
+
     private Integer feeUserId;
 
     private String feeLink;
@@ -15,6 +17,14 @@ public class Feedback {
 
     public void setFeeId(Integer feeId) {
         this.feeId = feeId;
+    }
+
+    public String getFeeImgurl() {
+        return feeImgurl;
+    }
+
+    public void setFeeImgurl(String feeImgurl) {
+        this.feeImgurl = feeImgurl == null ? null : feeImgurl.trim();
     }
 
     public Integer getFeeUserId() {
