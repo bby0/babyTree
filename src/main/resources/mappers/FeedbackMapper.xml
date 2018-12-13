@@ -3,6 +3,7 @@
 <mapper namespace="com.qfedu.babytree.mapper.FeedbackMapper" >
   <resultMap id="BaseResultMap" type="com.qfedu.babytree.pojo.Feedback" >
     <id column="fee_id" property="feeId" jdbcType="INTEGER" />
+    <result column="fee_imgurl" property="feeImgurl" jdbcType="VARCHAR" />
     <result column="fee_user_id" property="feeUserId" jdbcType="INTEGER" />
     <result column="fee_link" property="feeLink" jdbcType="VARCHAR" />
   </resultMap>
@@ -10,7 +11,7 @@
     <result column="fee_content" property="feeContent" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    fee_id, fee_user_id, fee_link
+    fee_id, fee_imgurl, fee_user_id, fee_link
   </sql>
   <sql id="Blob_Column_List" >
     fee_content
@@ -28,16 +29,19 @@
     where fee_id = #{feeId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.qfedu.babytree.pojo.Feedback" >
-    insert into feedback (fee_id, fee_user_id, fee_link, 
-      fee_content)
-    values (#{feeId,jdbcType=INTEGER}, #{feeUserId,jdbcType=INTEGER}, #{feeLink,jdbcType=VARCHAR}, 
-      #{feeContent,jdbcType=LONGVARCHAR})
+    insert into feedback (fee_id, fee_imgurl, fee_user_id, 
+      fee_link, fee_content)
+    values (#{feeId,jdbcType=INTEGER}, #{feeImgurl,jdbcType=VARCHAR}, #{feeUserId,jdbcType=INTEGER}, 
+      #{feeLink,jdbcType=VARCHAR}, #{feeContent,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.qfedu.babytree.pojo.Feedback" >
     insert into feedback
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="feeId != null" >
         fee_id,
+      </if>
+      <if test="feeImgurl != null" >
+        fee_imgurl,
       </if>
       <if test="feeUserId != null" >
         fee_user_id,
@@ -53,6 +57,9 @@
       <if test="feeId != null" >
         #{feeId,jdbcType=INTEGER},
       </if>
+      <if test="feeImgurl != null" >
+        #{feeImgurl,jdbcType=VARCHAR},
+      </if>
       <if test="feeUserId != null" >
         #{feeUserId,jdbcType=INTEGER},
       </if>
@@ -67,6 +74,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.babytree.pojo.Feedback" >
     update feedback
     <set >
+      <if test="feeImgurl != null" >
+        fee_imgurl = #{feeImgurl,jdbcType=VARCHAR},
+      </if>
       <if test="feeUserId != null" >
         fee_user_id = #{feeUserId,jdbcType=INTEGER},
       </if>
@@ -81,15 +91,20 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.qfedu.babytree.pojo.Feedback" >
     update feedback
-    set fee_user_id = #{feeUserId,jdbcType=INTEGER},
+    set fee_imgurl = #{feeImgurl,jdbcType=VARCHAR},
+      fee_user_id = #{feeUserId,jdbcType=INTEGER},
       fee_link = #{feeLink,jdbcType=VARCHAR},
       fee_content = #{feeContent,jdbcType=LONGVARCHAR}
     where fee_id = #{feeId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.qfedu.babytree.pojo.Feedback" >
     update feedback
-    set fee_user_id = #{feeUserId,jdbcType=INTEGER},
+    set fee_imgurl = #{feeImgurl,jdbcType=VARCHAR},
+      fee_user_id = #{feeUserId,jdbcType=INTEGER},
       fee_link = #{feeLink,jdbcType=VARCHAR}
     where fee_id = #{feeId,jdbcType=INTEGER}
   </update>
+
+
+
 </mapper>

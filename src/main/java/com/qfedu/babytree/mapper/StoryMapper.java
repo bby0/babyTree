@@ -7,8 +7,9 @@ import java.util.Map;
 
 public interface StoryMapper {
     int deleteByPrimaryKey(Integer stoId);
-
+    //添加社区故事
     int insert(Story record);
+
 
     int insertSelective(Story record);
 

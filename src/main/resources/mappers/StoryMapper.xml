@@ -29,12 +29,16 @@
     where sto_id = #{stoId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.qfedu.babytree.pojo.Story" >
+    <selectKey resultType="java.lang.Integer" keyProperty="stoId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into story (sto_id, sto_user_id, sto_baby_id, 
-      sto_likenum, sto_content)
+      sto_likenum, sto_content,sto_time)
     values (#{stoId,jdbcType=INTEGER}, #{stoUserId,jdbcType=INTEGER}, #{stoBabyId,jdbcType=INTEGER}, 
-      #{stoLikenum,jdbcType=INTEGER}, #{stoContent,jdbcType=LONGVARCHAR})
+      #{stoLikenum,jdbcType=INTEGER}, #{stoContent,jdbcType=LONGVARCHAR},now())
   </insert>
   <insert id="insertSelective" parameterType="com.qfedu.babytree.pojo.Story" >
+
     insert into story
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="stoId != null" >
@@ -69,6 +73,7 @@
       <if test="stoContent != null" >
         #{stoContent,jdbcType=LONGVARCHAR},
       </if>
+
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.babytree.pojo.Story" >
@@ -171,6 +176,19 @@
     sto_content ,sto_likenum,sto_time,img_url,sto_id from users INNER JOIN story ON user_id = sto_user_id LEFT OUTER JOIN imgs on sto_id = story_id WHERE user_id = #{arg0} and sto_id = #{arg1}
 
   </select>
+
+  <insert id="insertStory">
+
+    insert into imgs values
+    <foreach collection="list" separator="," item="img">
+      (null,#{img.imgurl},#{img.storyid})
+    </foreach>
+
+  </insert>
+
+
+
+
 
 
 
