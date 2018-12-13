@@ -21,4 +21,17 @@ public class BabyServiceImpl implements BabyService {
 
         return i > 0 ? ResultUtil.setOK("添加成功", babyMapper.insertSelective(baby)) : ResultUtil.setError(SystemCon.RERROR1, "添加失败", null);
     }
+
+    @Override
+    public ResultBean selectByUserid(Integer userId) {
+
+        return ResultUtil.setOK("查询成功", babyMapper.selectByUserid(userId));
+    }
+
+    @Override
+    public ResultBean updateBabyByid(Baby baby) {
+
+        int i = babyMapper.updateByPrimaryKeySelective(baby);
+        return i > 0 ? ResultUtil.setOK("修改成功", babyMapper.selectByPrimaryKey(baby.getBabyId())) : ResultUtil.setError(SystemCon.RERROR1, "修改失败", null);
+    }
 }

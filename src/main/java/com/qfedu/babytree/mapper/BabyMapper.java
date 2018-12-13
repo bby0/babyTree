@@ -2,6 +2,8 @@ package com.qfedu.babytree.mapper;
 
 import com.qfedu.babytree.pojo.Baby;
 
+import java.util.List;
+
 public interface BabyMapper {
     int deleteByPrimaryKey(Integer babyId);
 
@@ -16,4 +18,6 @@ public interface BabyMapper {
     int updateByPrimaryKeyWithBLOBs(Baby record);
 
     int updateByPrimaryKey(Baby record);
+
+    List<Baby> selectByUserid(Integer userId);
 }
