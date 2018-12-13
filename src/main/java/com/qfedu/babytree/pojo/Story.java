@@ -13,10 +13,19 @@ public class Story {
 
     private String stoContent;
 
+    private String stoTime;
+
     private Users users;
 
     private List<Imgs> imgs;
 
+    public String getStoTime() {
+        return stoTime;
+    }
+
+    public void setStoTime(String stoTime) {
+        this.stoTime = stoTime;
+    }
 
     public Users getUsers() {
         return users;

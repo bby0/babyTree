@@ -14,4 +14,7 @@ public interface ImgsMapper {
     int updateByPrimaryKeySelective(Imgs record);
 
     int updateByPrimaryKey(Imgs record);
+
+    //插入多个图片
+    int insertStory(Imgs imgs);
 }

@@ -4,6 +4,9 @@ import com.qfedu.babytree.pojo.Comment;
 import com.qfedu.babytree.pojo.Story;
 import com.qfedu.babytree.vo.ResponseVo;
 import com.qfedu.babytree.vo.ResultBean;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 public interface StoryService {
 
@@ -20,6 +23,8 @@ public interface StoryService {
     ResultBean getStoryDetail(Integer stoUserId,Integer stoId);
 
     ResultBean getComment(Integer storyId);
+
+    ResultBean addStory(Story story,MultipartFile[] file) throws IOException;
 
 
 }
