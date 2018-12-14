@@ -1,6 +1,7 @@
 package com.qfedu.babytree.mapper;
 
 import com.qfedu.babytree.pojo.Story;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,7 @@ public interface StoryMapper {
     //查询所有故事
     List<Story> selectStory(Integer uid);
     //点赞
-    int giveLike(Integer uid, Integer tid);
+    int giveLike(@Param("uid")Integer uid,@Param("tid") Integer tid);
     //我的社区空间头部
     List<Map<String,Object>> getMySpaceinfo(Integer uid);
     //查询我的故事

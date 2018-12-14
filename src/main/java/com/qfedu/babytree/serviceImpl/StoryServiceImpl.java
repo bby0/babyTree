@@ -105,6 +105,11 @@ public class StoryServiceImpl implements StoryService {
         }
     }
 
+    /**
+     * 获取说说详情
+     * @param stoId
+     * @return
+     */
     @Override
     public ResultBean getStoryDetail(Integer stoId) {
 
@@ -112,7 +117,7 @@ public class StoryServiceImpl implements StoryService {
 //        Integer stoid = Integer.valueOf(stoUserId);
 
         //List<Story> data = storyMapper.getStoryDetail(stoUserId,stoId);
-        System.out.println(storyMapper.getStoryDetail(stoId));
+        System.out.println(storyMapper.getStoryDetail( stoId));
 
         if (storyMapper.getStoryDetail(stoId) != null) {
             return ResultUtil.setOK("获取成功", storyMapper.getStoryDetail(stoId));
