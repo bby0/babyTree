@@ -204,4 +204,19 @@
     from users where user_tel = #{name} or user_nickname = #{name}
 
   </select>
+
+  <insert id="addNotice">
+
+    insert into notice values (null ,#{noticeId},#{userId})
+
+
+  </insert>
+  
+  <select id="checkNotice" resultType="INTEGER">
+
+    select
+    count(1) as count
+    from notice where no_noticeid = #{noticeId} and no_userid = #{userId}
+
+  </select>
 </mapper>

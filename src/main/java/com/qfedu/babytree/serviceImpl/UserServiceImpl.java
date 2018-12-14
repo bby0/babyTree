@@ -2,6 +2,7 @@ package com.qfedu.babytree.serviceImpl;
 
 import com.qfedu.babytree.constan.SystemCon;
 import com.qfedu.babytree.mapper.FeedbackMapper;
+import com.qfedu.babytree.mapper.NoticeMapper;
 import com.qfedu.babytree.mapper.UsersLogMapper;
 import com.qfedu.babytree.mapper.UsersMapper;
 import com.qfedu.babytree.pojo.Feedback;
@@ -26,6 +27,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private FeedbackMapper feedbackMapper;
+
+    @Autowired
+    private NoticeMapper noticeMapper;
 
     @Override
     public ResultBean save(Users user, String ip)
@@ -77,5 +81,23 @@ public class UserServiceImpl implements UserService {
         }else {
             return ResultUtil.setError(SystemCon.RERROR1,"获取失败",null);
         }
+    }
+
+    @Override
+    public ResultBean addNotice(Integer noticeId, Integer userId) {
+
+
+        if (usersMapper.checkNotice(noticeId,userId)==1) {
+
+            return ResultUtil.setError(SystemCon.RERROR1,"不能重复关注哦~",null);
+        } else {
+
+            if(usersMapper.addNotice(noticeId,userId)>0){
+                return ResultUtil.setOK("关注成功",1);
+            }else {
+                return ResultUtil.setError(SystemCon.RERROR1,"关注失败",null);
+            }
+        }
+
     }
 }

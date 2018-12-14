@@ -157,7 +157,7 @@ public class UserController {
     /**
      * 用户反馈
      */
-    @PostMapping("/addFeedBack")
+    @PostMapping("addFeedBack")
     public ResultBean addFeedBack(Feedback feedback,MultipartFile file) throws IOException {
         if(!file.isEmpty()){
             String path=OssUtil.fileUp(file.getOriginalFilename(),file.getBytes());
@@ -178,6 +178,22 @@ public class UserController {
 
         return ResultUtil.setOK("当前用户的签到记录", signService.selectSignByUserid(UserUtil.getUserId(stringRedisTemplate)));
     }
+
+    @GetMapping("doNotice")
+    public ResultBean doNotice(Integer noticeId) {
+        System.out.println(noticeId);
+
+        Integer userId = UserUtil.getUserId(stringRedisTemplate);
+
+        return userService.addNotice(noticeId,userId);
+    }
+
+
+
+
+
+
+
 
 
 }

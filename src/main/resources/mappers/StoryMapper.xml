@@ -36,7 +36,7 @@
     </selectKey>
     insert into story (sto_id, sto_user_id, sto_baby_id, 
       sto_likenum, sto_content,sto_time)
-    values (#{stoId,jdbcType=INTEGER}, #{stoUserId,jdbcType=INTEGER}, #{stoBabyId,jdbcType=INTEGER}, 
+    values (null , #{stoUserId,jdbcType=INTEGER}, #{stoBabyId,jdbcType=INTEGER},
       #{stoLikenum,jdbcType=INTEGER}, #{stoContent,jdbcType=LONGVARCHAR},now())
   </insert>
   <insert id="insertSelective" parameterType="com.qfedu.babytree.pojo.Story" >

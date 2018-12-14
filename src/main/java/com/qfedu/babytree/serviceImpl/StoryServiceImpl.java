@@ -140,8 +140,10 @@ public class StoryServiceImpl implements StoryService {
     @Override
     public ResultBean addStory(Story story, MultipartFile[] file) throws IOException {
 
+        int num = storyMapper.insert(story);
 
-        storyMapper.insert(story);
+
+
         List<Imgs> arr = new ArrayList<Imgs>();
 
         for (int i = 0; i < file.length; i++) {
@@ -157,9 +159,9 @@ public class StoryServiceImpl implements StoryService {
             imgsMapper.insert(img);
 
         }
-        if (storyMapper.insertSelective(story) > 0) {
+        if (num > 0) {
 
-            return ResultUtil.setOK("添加成功", storyMapper.insertSelective(story));
+            return ResultUtil.setOK("添加成功", num);
         } else {
             return ResultUtil.setError(SystemCon.RERROR1, "添加失败", null);
         }
@@ -168,8 +170,9 @@ public class StoryServiceImpl implements StoryService {
     @Override
     public ResponseVo<Story> getAllStory(Integer pageNum, Integer pageSize) {
 
+
         Integer pageNum1 = 1;
-        Integer pageSize1 = 5;
+        Integer pageSize1 = 10000;
 
         if (pageNum == null || pageSize == null) {
 
@@ -186,6 +189,7 @@ public class StoryServiceImpl implements StoryService {
 
         List<Story> count = storyMapper.selectAllStory();
         System.out.println(count.size());
+        System.out.println(page.getList().toString());
 
         vo.setData(page.getList());
         vo.setCount(count.size());

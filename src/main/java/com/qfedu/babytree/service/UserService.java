@@ -21,4 +21,8 @@ public interface UserService {
     //提交反馈
     ResultBean insertSelective(Feedback feedback);
 
+    //关注用户
+    ResultBean addNotice(Integer noticeId,Integer userId);
+
+
 }
