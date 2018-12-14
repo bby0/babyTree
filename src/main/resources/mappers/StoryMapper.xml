@@ -188,10 +188,13 @@
 
   </insert>
 
+  <select id="selectAllStory" resultMap="story">
 
+    select user_id ,user_nickname,user_imgurl,
+    sto_content ,sto_likenum,sto_time,img_url,sto_id
+    from users INNER JOIN story ON user_id = sto_user_id LEFT OUTER JOIN imgs on sto_id = story_id  order by sto_time desc
 
-
-
+  </select>
 
 
 </mapper>

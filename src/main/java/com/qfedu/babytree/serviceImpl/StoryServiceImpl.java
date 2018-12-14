@@ -128,6 +128,8 @@ public class StoryServiceImpl implements StoryService {
 
     @Override
     public ResultBean getComment(Integer storyId) {
+        System.out.println(storyId);
+        System.out.println("评论"+commentMapper.selectCommentByStoId(storyId));
         if (commentMapper.selectCommentByStoId(storyId) != null) {
             return ResultUtil.setOK("获取成功", commentMapper.selectCommentByStoId(storyId));
         } else {
@@ -161,5 +163,35 @@ public class StoryServiceImpl implements StoryService {
         } else {
             return ResultUtil.setError(SystemCon.RERROR1, "添加失败", null);
         }
+    }
+
+    @Override
+    public ResponseVo<Story> getAllStory(Integer pageNum, Integer pageSize) {
+
+        Integer pageNum1 = 1;
+        Integer pageSize1 = 5;
+
+        if (pageNum == null || pageSize == null) {
+
+            pageNum = pageNum1;
+            pageSize = pageSize1;
+
+        }
+
+
+        PageHelper.startPage(pageNum, pageSize);
+        List<Story> list = storyMapper.selectAllStory();
+        PageInfo<Story> page = new PageInfo<Story>(list);
+        ResponseVo<Story> vo = ResponseVo.OK();
+
+        List<Story> count = storyMapper.selectAllStory();
+        System.out.println(count.size());
+
+        vo.setData(page.getList());
+        vo.setCount(count.size());
+
+        return vo;
+
+
     }
 }

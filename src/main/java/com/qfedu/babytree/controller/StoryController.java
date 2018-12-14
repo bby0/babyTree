@@ -8,6 +8,7 @@ import com.qfedu.babytree.service.StoryService;
 import com.qfedu.babytree.token.TokenUtil;
 import com.qfedu.babytree.util.OSSUtil;
 import com.qfedu.babytree.util.ResultUtil;
+import com.qfedu.babytree.util.UserUtil;
 import com.qfedu.babytree.vo.ResponseVo;
 import com.qfedu.babytree.vo.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,14 @@ public class StoryController {
 
         return storyService.getStory(uid, pageNum, pageSize);
     }
+
+    @GetMapping("/getAllStory")
+    public ResponseVo<Story> getAllStory(Integer pageNum, Integer pageSize) {
+
+        return storyService.getAllStory( pageNum, pageSize);
+
+    }
+
 
     /**
      * 点赞
@@ -110,6 +119,8 @@ public class StoryController {
         Users user = JSON.parseObject(TokenUtil.parseToken(ops.get(SystemCon.TOKENHASH)).getContent(), Users.class);
         Integer uid = user.getUserId();
 
+        System.out.println(comment);
+
         comment.setUserId(uid);
 
         return storyService.doComment(comment);
@@ -159,6 +170,7 @@ public class StoryController {
 
 
     }
+
 }
 
 

@@ -26,5 +26,7 @@ public interface StoryService {
 
     ResultBean addStory(Story story,MultipartFile[] file) throws IOException;
 
+    ResponseVo<Story> getAllStory(Integer pageNum, Integer pageSize);
+
 
 }

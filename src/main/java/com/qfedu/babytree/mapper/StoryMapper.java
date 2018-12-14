@@ -32,5 +32,7 @@ public interface StoryMapper {
     //查询故事详情
     List<Story> getStoryDetail(Integer stoId);
 
+    List<Story> selectAllStory();
+
 
 }

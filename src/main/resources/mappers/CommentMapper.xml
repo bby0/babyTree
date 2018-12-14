@@ -106,13 +106,16 @@
   
   <insert id="doComment">
 
-    insert into comment values (null,#{commContent},#{commLikenum},now(),#{storyId},#{userId})
+    insert into comment values (null,#{commContent},#{commLikenum},now(),#{storyId} ,#{userId})
 
   </insert>
 
-  <select id="selectCommentByStoId" resultMap="BaseResultMap">
+  <select id="selectCommentByStoId" resultType="com.qfedu.babytree.pojo.Comment">
 
-    select * from comment where story_id = #{id}
+    select comment.comm_id as commId,comment.comm_content as commContent,comment.comm_likenum as commLikenum,comment.comm_time as commTime,comment.story_id as storyId,comment.user_id as userId,
+    users.user_nickname as userNickname,users.user_imgurl as userImgurl
+    from comment left outer join users on comment.user_id = users.user_id
+    where story_id = #{id}
 
   </select>
 

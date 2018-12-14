@@ -20,7 +20,7 @@ public interface CommentMapper {
     //添加评论
     int doComment(Comment comment);
 
-    //根据故事id查询所有的故事
+    //根据故事id查询所有的故事的评论
     List<Comment> selectCommentByStoId(Integer storyId);
 
 }
