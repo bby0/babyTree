@@ -45,6 +45,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResultBean checkRepeat(String name) {
         Users user=usersMapper.selectByName(name);
+        System.out.println(name);
+        System.out.println("检查用户名"+user);
         if(user==null){
             return ResultUtil.setOK("OK",null);
         }else {

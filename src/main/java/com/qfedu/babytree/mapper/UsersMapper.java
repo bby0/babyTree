@@ -19,5 +19,5 @@ public interface UsersMapper {
     int updateByPrimaryKey(Users record);
 
     //登录
-    Users selectByName(String Tel);
+    Users selectByName(String name);
 }

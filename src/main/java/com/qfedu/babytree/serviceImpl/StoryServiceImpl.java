@@ -69,9 +69,9 @@ public class StoryServiceImpl implements StoryService {
     @Override
     public ResultBean giveLike(Integer uid, Integer tid) {
         if (storyMapper.giveLike(uid, tid) <= 0) {
-            return ResultUtil.setOK("点赞失败", null);
+            return ResultUtil.setOK("点赞成功", null);
         } else {
-            return ResultUtil.setError(SystemCon.RERROR1, "点赞成功", null);
+            return ResultUtil.setError(SystemCon.RERROR1, "点赞失败", null);
         }
 
     }
@@ -106,16 +106,16 @@ public class StoryServiceImpl implements StoryService {
     }
 
     @Override
-    public ResultBean getStoryDetail(Integer stoUserId, Integer stoId) {
+    public ResultBean getStoryDetail(Integer stoId) {
 
 //        Integer stoUserid = Integer.valueOf(stoUserId);
 //        Integer stoid = Integer.valueOf(stoUserId);
 
         //List<Story> data = storyMapper.getStoryDetail(stoUserId,stoId);
-        System.out.println(storyMapper.getStoryDetail(stoUserId, stoId));
+        System.out.println(storyMapper.getStoryDetail(stoId));
 
-        if (storyMapper.getStoryDetail(stoUserId, stoId) != null) {
-            return ResultUtil.setOK("获取成功", storyMapper.getStoryDetail(stoUserId, stoId));
+        if (storyMapper.getStoryDetail(stoId) != null) {
+            return ResultUtil.setOK("获取成功", storyMapper.getStoryDetail(stoId));
         } else {
             return ResultUtil.setError(SystemCon.RERROR1, "获取失败", null);
         }

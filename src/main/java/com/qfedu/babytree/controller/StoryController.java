@@ -59,6 +59,9 @@ public class StoryController {
     @PostMapping("/Like")
     public ResultBean giveLike(Integer uid, Integer tid) {
 
+//        Integer Uid = Integer.valueOf(uid);
+//        Integer Tid = Integer.valueOf(tid);
+
         System.out.println("用户id=" + uid + ", 故事id=" + tid);
         return storyService.giveLike(uid, tid);
 
@@ -118,11 +121,10 @@ public class StoryController {
      */
 
     @GetMapping("/getStoryDetail")
-    public ResultBean getStoryDetail(Integer stoUserId, Integer stoId) {
-        System.out.println(stoUserId);
-        System.out.println(stoId);
+    public ResultBean getStoryDetail( Integer stoId) {
+        System.out.println("故事详情的id="+stoId);
 
-        return storyService.getStoryDetail(stoUserId, stoId);
+        return storyService.getStoryDetail( stoId);
 
     }
 

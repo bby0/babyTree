@@ -6,6 +6,8 @@
     <result column="sto_user_id" property="stoUserId" jdbcType="INTEGER" />
     <result column="sto_baby_id" property="stoBabyId" jdbcType="INTEGER" />
     <result column="sto_likenum" property="stoLikenum" jdbcType="INTEGER" />
+    <result column="sto_content" property="stoContent" jdbcType="LONGVARCHAR" />
+    <result column="sto_time" property="stoTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.qfedu.babytree.pojo.Story" extends="BaseResultMap" >
     <result column="sto_content" property="stoContent" jdbcType="LONGVARCHAR" />
@@ -141,7 +143,7 @@
 
   <update id="giveLike">
 
-    update story set sto_likenum = sto_likenum + 1 where sto_user_id = #{arg0} and sto_id = #{arg1}
+    update story set sto_likenum = sto_likenum + 1 where sto_user_id = #{uid} and sto_id = #{tid}
 
 
   </update>
@@ -157,7 +159,7 @@
 
   </resultMap>
 
-  <select id="getMySpaceinfo" resultMap="spaceInfo">
+  <select id="getMySpaceinfo" resultMap="spaceInfo" parameterType="int">
 
     SELECT user_id,users.user_imgurl,users.user_nickname,(SELECT count(1) from notice WHERE no_userid = #{uid} )AS count FROM users WHERE user_id = #{uid}
 
@@ -173,7 +175,7 @@
   <select id="getStoryDetail" resultMap="story">
 
     select user_id ,user_nickname,user_imgurl,
-    sto_content ,sto_likenum,sto_time,img_url,sto_id from users INNER JOIN story ON user_id = sto_user_id LEFT OUTER JOIN imgs on sto_id = story_id WHERE user_id = #{arg0} and sto_id = #{arg1}
+    sto_content ,sto_likenum,sto_time,img_url,sto_id from users INNER JOIN story ON user_id = sto_user_id LEFT OUTER JOIN imgs on sto_id = story_id WHERE sto_id = #{sid}
 
   </select>
 

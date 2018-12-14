@@ -29,7 +29,7 @@ public interface StoryMapper {
     //查询我的故事
     List<Story> getmyStory(Integer uid);
     //查询故事详情
-    List<Story> getStoryDetail(Integer stoUserId,Integer stoId);
+    List<Story> getStoryDetail(Integer stoId);
 
 
 }

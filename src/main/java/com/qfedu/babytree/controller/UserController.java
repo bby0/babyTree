@@ -48,8 +48,8 @@ public class UserController {
     }
 
     @GetMapping("usercheck")
-    public ResultBean checkName(String name) {
-        return userService.checkRepeat(name);
+    public ResultBean checkName(String userNickname) {
+        return userService.checkRepeat(userNickname);
     }
 
     //获取用户的信息
