@@ -141,6 +141,9 @@ public class StoryController {
         Users user = JSON.parseObject(TokenUtil.parseToken(ops.get(SystemCon.TOKENHASH)).getContent(), Users.class);
         Integer uid = user.getUserId();
 
+        System.out.println("故事图片"+file);
+        System.out.println("故事内容"+story);
+
         story.setStoUserId(uid);
 
 

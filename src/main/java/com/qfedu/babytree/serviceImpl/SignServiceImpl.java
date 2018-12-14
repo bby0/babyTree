@@ -61,6 +61,8 @@ public class SignServiceImpl implements SignService {
         //首先获取用户当前的积分
         int times = signMapper.selectByUserid(sign.getSigUserid()).getSigTimes();
         //进行判断
+        System.out.println("原来的积分：" + times);
+        System.out.println("传入的积分：" + sign.getSigTimes());
         if (times > sign.getSigTimes()) {
 
             //可以兑换
