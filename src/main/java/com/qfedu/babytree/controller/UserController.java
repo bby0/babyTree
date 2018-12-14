@@ -172,5 +172,12 @@ public class UserController {
 
     }
 
+    @GetMapping("selectSignByuserid")
+    public ResultBean selectSignByuserid() throws IOException {
+
+
+        return ResultUtil.setOK("当前用户的签到记录", signService.selectSignByUserid(UserUtil.getUserId(stringRedisTemplate)));
+    }
+
 
 }
