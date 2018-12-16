@@ -3,7 +3,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://10.8.162.99:3306/babytree?useSSL=false&serverTimezone=GMT
+    url: jdbc:mysql://18.216.14.5:3306/babytree??useUnicode=true&amp;characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT
     username: root
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
