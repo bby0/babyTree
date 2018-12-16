@@ -121,12 +121,14 @@ public class UserController {
     //添加该用户的宝宝
     @PostMapping("addBaby")
     public ResultBean addBaby(Baby baby, MultipartFile file) throws IOException {
+        System.out.println("文件"+file);
+        System.out.println("宝贝信息"+baby);
 
-        String path = null;
-        if (!file.isEmpty()) {
-            path = ossUtil.fileUp(file.getOriginalFilename(), file.getBytes());
-            System.out.println("文件" + path);
-        }
+        String path = "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3708622691,2971422807&fm=27&gp=0.jpg";
+//        if (!file.isEmpty()) {
+//            path = ossUtil.fileUp(file.getOriginalFilename(), file.getBytes());
+//            System.out.println("文件" + path);
+//        }
 
         baby.setUserId(UserUtil.getUserId(stringRedisTemplate));
         baby.setBabyImgurl(path);

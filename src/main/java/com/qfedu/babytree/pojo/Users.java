@@ -25,14 +25,25 @@ public class Users {
 
     private String userImgurl;
 
-    private Integer count;
+    private Integer noticeNum;
 
-    public Integer getCount() {
-        return count;
+    private Integer fansNum;
+
+
+    public Integer getNoticeNum() {
+        return noticeNum;
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
+    public void setNoticeNum(Integer noticeNum) {
+        this.noticeNum = noticeNum;
+    }
+
+    public Integer getFansNum() {
+        return fansNum;
+    }
+
+    public void setFansNum(Integer fansNum) {
+        this.fansNum = fansNum;
     }
 
     public Integer getUserId() {

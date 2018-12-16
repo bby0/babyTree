@@ -90,4 +90,19 @@ public class Baby {
     public void setBabyImgurl(String babyImgurl) {
         this.babyImgurl = babyImgurl == null ? null : babyImgurl.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Baby{" +
+                "babyId=" + babyId +
+                ", userId=" + userId +
+                ", babySex=" + babySex +
+                ", babyName='" + babyName + '\'' +
+                ", babyWeight=" + babyWeight +
+                ", babyHeight=" + babyHeight +
+                ", babyBirth='" + babyBirth + '\'' +
+                ", babyStatus=" + babyStatus +
+                ", babyImgurl='" + babyImgurl + '\'' +
+                '}';
+    }
 }

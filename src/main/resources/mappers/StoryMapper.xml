@@ -154,14 +154,16 @@
     <id column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="user_nickname" property="userNickname" jdbcType="VARCHAR" />
     <result column="user_imgurl" property="userImgurl" jdbcType="LONGVARCHAR" />
-    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="noticenum" property="noticeNum" jdbcType="INTEGER" />
+    <result column="fansnum" property="fansNum" jdbcType="INTEGER" />
+
 
 
   </resultMap>
 
   <select id="getMySpaceinfo" resultMap="spaceInfo" parameterType="int">
 
-    SELECT user_id,users.user_imgurl,users.user_nickname,(SELECT count(1) from notice WHERE no_userid = #{uid} )AS count FROM users WHERE user_id = #{uid}
+    SELECT user_id,users.user_imgurl,users.user_nickname,(SELECT count(1) from notice WHERE no_userid = #{uid} )AS noticenum,(select count(1) from notice where no_noticeid = #{uid}) as fansnum FROM users WHERE user_id = #{uid}
 
   </select>
   

@@ -54,6 +54,7 @@ public class SSOServiceImpl implements SSOService {
                 //采用Hash类型 存储的键为固定字符串+Token 存储的值是对应用户信息的json字符串
                 //jedisUtil.addHash(SystemCon.TOKENHASH,"token:"+token,JSON.toJSONString(user));
                 ops.set(SystemCon.TOKENHASH, token);//1分钟过期
+
                 //日志记录
                 //usersLogMapper.insert(new UsersLog(user.getUserId(),"登录成功：令牌："+token,ip));
                 //返回值需要携带生成Token和对应的登录信息
