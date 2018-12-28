@@ -4,12 +4,11 @@ package com.qfedu.babytree.controller;
 import com.alibaba.fastjson.JSON;
 import com.qfedu.babytree.constan.SystemCon;
 import com.qfedu.babytree.pojo.*;
+import com.qfedu.babytree.redis.RedisUtil;
 import com.qfedu.babytree.service.*;
 import com.qfedu.babytree.token.Token;
 import com.qfedu.babytree.token.TokenUtil;
-import com.qfedu.babytree.util.OSSUtil;
-import com.qfedu.babytree.util.ResultUtil;
-import com.qfedu.babytree.util.UserUtil;
+import com.qfedu.babytree.util.*;
 import com.qfedu.babytree.vo.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -38,7 +37,10 @@ public class UserController {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
     @Autowired
-    private OSSUtil OssUtil;
+    private RedisUtil redisUtil;
+
+
+    private HttpServletRequest request;
 
 
     @PostMapping("register")
@@ -55,23 +57,37 @@ public class UserController {
     //获取用户的信息
     @GetMapping("userInfo")
     public ResultBean selectUserInfo(HttpServletRequest request) {
-        ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
+        //Users user = JSON.parseObject(TokenUtil.parseToken(CookieUtil.getCk(request,SystemCon.TOKECOOKIE)).getContent(), Users.class);
+
+        Users users = JSON.parseObject(redisUtil.get(CookieUtil.getCk(request,SystemCon.TOKECOOKIE),0),Users.class);
+
+        //ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
         //从token中获取用户id信息进行返回
-        Token token = TokenUtil.parseToken(ops.get(SystemCon.TOKENHASH));
+        //Token token = TokenUtil.parseToken(ops.get(SystemCon.TOKENHASH));
         //获取用户对象
-        String content1 = token.getContent();
-        Users users = JSON.parseObject(content1, Users.class);
+        //String content1 = token.getContent();
+        //Users users = JSON.parseObject(content1, Users.class);
         /*另一种转为Java对象
         JSONObject jsonObject = new JSONObject().fromObject(content1);
         Users users = (Users) JSONObject.toBean(jsonObject, Users.class);*/
-        return userService.selectByUserid(users.getUserId());
+
+        if (users==null) {
+
+            return ResultUtil.setError(SystemCon.RERROR1,"请重新登录",null);
+        } else {
+            return userService.selectByUserid(users.getUserId());
+
+
+        }
     }
 
     @PostMapping("userSign")
-    public ResultBean userSign() {
+    public ResultBean userSign(HttpServletRequest request) {
+        Users user = JSON.parseObject(TokenUtil.parseToken(CookieUtil.getCk(request,SystemCon.TOKECOOKIE)).getContent(), Users.class);
+
         //获取用户信息
-        ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
-        Users user = JSON.parseObject(TokenUtil.parseToken(ops.get(SystemCon.TOKENHASH)).getContent(), Users.class);
+//        ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
+//        Users user = JSON.parseObject(TokenUtil.parseToken(ops.get(SystemCon.TOKENHASH)).getContent(), Users.class);
         Integer userId = user.getUserId();
 
         return signService.signUser(userId);
@@ -82,20 +98,20 @@ public class UserController {
     @PostMapping("updataUserInfo")
     public ResultBean updataUserInfo(Users users) {
         System.out.println("user:" + users);
-        return userService.updataUserInfo(stringRedisTemplate, users);
+        return userService.updataUserInfo(request, users);
     }
 
     //积分兑换会员
     @PostMapping("exchangeVip")
     public ResultBean exchangeVip(Sign sign) {
-        sign.setSigUserid(UserUtil.getUserId(stringRedisTemplate));
+        sign.setSigUserid(UserUtil.getUserId(request));
         ResultBean resultBean = signService.reduceTimesByUserid(sign);
 
         if (resultBean.getCode() == SystemCon.ROK) {
             //兑换成功后将用户设置为会员
             Users users = new Users();
             users.setUserLevel(1);
-            return ResultUtil.setOK("兑换成功", userService.updataUserInfo(stringRedisTemplate, users));
+            return ResultUtil.setOK("兑换成功", userService.updataUserInfo(request, users));
         } else {
             return resultBean;
         }
@@ -105,7 +121,7 @@ public class UserController {
     @PostMapping("collectArticle")
     public ResultBean collectArticle(Collection collection) {
 
-        collection.setColUserid(UserUtil.getUserId(stringRedisTemplate));
+        collection.setColUserid(UserUtil.getUserId(request));
         return collectionService.CollectArticle(collection);
 
     }
@@ -114,7 +130,7 @@ public class UserController {
     @GetMapping("selectArticlesByUserid")
     public ResultBean selectArticlesByUserid() {
 
-        return collectionService.selectArticlesByUserid(UserUtil.getUserId(stringRedisTemplate));
+        return collectionService.selectArticlesByUserid(UserUtil.getUserId(request));
 
     }
 
@@ -130,7 +146,7 @@ public class UserController {
 //            System.out.println("文件" + path);
 //        }
 
-        baby.setUserId(UserUtil.getUserId(stringRedisTemplate));
+        baby.setUserId(UserUtil.getUserId(request));
         baby.setBabyImgurl(path);
         return babyService.addBaby(baby);
 
@@ -140,7 +156,7 @@ public class UserController {
     @GetMapping("selectBabyByUserid")
     public ResultBean selectBabyByUserid() {
 
-        return babyService.selectByUserid(UserUtil.getUserId(stringRedisTemplate));
+        return babyService.selectByUserid(UserUtil.getUserId(request));
     }
 
     //根据修改小宝贝的信息呀~~
@@ -151,7 +167,7 @@ public class UserController {
             path = ossUtil.fileUp(file.getOriginalFilename(), file.getBytes());
             System.out.println("文件" + path);
         }
-        baby.setUserId(UserUtil.getUserId(stringRedisTemplate));
+        baby.setUserId(UserUtil.getUserId(request));
         baby.setBabyImgurl(path);
 
         return babyService.updateBabyByid(baby);
@@ -162,7 +178,7 @@ public class UserController {
     @PostMapping("addFeedBack")
     public ResultBean addFeedBack(Feedback feedback,MultipartFile file) throws IOException {
         if(!file.isEmpty()){
-            String path=OssUtil.fileUp(file.getOriginalFilename(),file.getBytes());
+            String path=ossUtil.fileUp(file.getOriginalFilename(),file.getBytes());
             System.out.println("文件地址:"+path);
             feedback.setFeeImgurl(path);
             userService.insertSelective(feedback);
@@ -178,14 +194,14 @@ public class UserController {
     public ResultBean selectSignByuserid() throws IOException {
 
 
-        return ResultUtil.setOK("当前用户的签到记录", signService.selectSignByUserid(UserUtil.getUserId(stringRedisTemplate)));
+        return ResultUtil.setOK("当前用户的签到记录", signService.selectSignByUserid(UserUtil.getUserId(request)));
     }
 
     @GetMapping("doNotice")
     public ResultBean doNotice(Integer noticeId) {
         System.out.println(noticeId);
 
-        Integer userId = UserUtil.getUserId(stringRedisTemplate);
+        Integer userId = UserUtil.getUserId(request);
 
         return userService.addNotice(noticeId,userId);
     }

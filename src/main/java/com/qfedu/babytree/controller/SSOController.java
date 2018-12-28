@@ -32,8 +32,7 @@ public class SSOController {
     @PostMapping("userlogin")
     public ResultBean login(String userNickname, String userPassword, HttpServletRequest request, HttpServletResponse response){
         String token= CookieUtil.getCk(request,SystemCon.TOKECOOKIE);
-        System.out.println("token: "+token);
-        System.out.println("userNickname ：" + userNickname);
+
         if(StringUtil.checkEmpty(token)){
             ResultBean rb=ssoService.login(userNickname,userPassword,request.getRemoteAddr());
             System.out.println("开始：");
@@ -58,17 +57,16 @@ public class SSOController {
         String tk=CookieUtil.getCk(request,SystemCon.TOKECOOKIE);
         ResultBean resultBean=ssoService.checkLogin(tk);
         System.out.println(1);
-        if(resultBean.getCode()!=SystemCon.ROK){
+        if(resultBean.getCode()==SystemCon.ROK){
             //存在就刷新时间
             //存在就刷新时间
-            //CookieUtil.setCK(response,SystemCon.TOKECOOKIE,TokenUtil.updateToken(TokenUtil.parseToken(tk)));
+            CookieUtil.setCK(response,SystemCon.TOKECOOKIE,TokenUtil.updateToken(TokenUtil.parseToken(tk)));
             //Token无效 Cookie就需要删除
+
+        }else{
             Cookie cookie=new Cookie(SystemCon.TOKECOOKIE,"");
             cookie.setMaxAge(0);
             response.addCookie(cookie);
-
-        }else{
-            return resultBean;
         }
         return resultBean;
     }

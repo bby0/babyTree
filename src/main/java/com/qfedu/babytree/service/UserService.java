@@ -5,6 +5,8 @@ import com.qfedu.babytree.pojo.Users;
 import com.qfedu.babytree.vo.ResultBean;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface UserService {
     //新增用户
     ResultBean save(Users user, String ip);
@@ -16,7 +18,7 @@ public interface UserService {
     ResultBean selectByUserid(Integer userId);
 
     //修改用户的信息
-    ResultBean updataUserInfo(StringRedisTemplate stringRedisTemplate, Users users);
+    ResultBean updataUserInfo(HttpServletRequest request, Users users);
 
     //提交反馈
     ResultBean insertSelective(Feedback feedback);

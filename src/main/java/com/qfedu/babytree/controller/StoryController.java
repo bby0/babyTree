@@ -4,21 +4,21 @@ package com.qfedu.babytree.controller;
 import com.alibaba.fastjson.JSON;
 import com.qfedu.babytree.constan.SystemCon;
 import com.qfedu.babytree.pojo.*;
+import com.qfedu.babytree.redis.RedisUtil;
 import com.qfedu.babytree.service.StoryService;
 import com.qfedu.babytree.token.TokenUtil;
-import com.qfedu.babytree.util.OSSUtil;
+import com.qfedu.babytree.util.CookieUtil;
 import com.qfedu.babytree.util.ResultUtil;
-import com.qfedu.babytree.util.UserUtil;
 import com.qfedu.babytree.vo.ResponseVo;
 import com.qfedu.babytree.vo.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @RestController
@@ -28,6 +28,10 @@ public class StoryController {
     private StoryService storyService;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private RedisUtil redisUtil;
+
+
 
 
 
@@ -39,10 +43,11 @@ public class StoryController {
      * @return
      */
     @GetMapping("/getStorybyUid")
-    public ResponseVo<Story> getStory(Integer pageNum, Integer pageSize) {
-
-        ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
-        Users user = JSON.parseObject(TokenUtil.parseToken(ops.get(SystemCon.TOKENHASH)).getContent(), Users.class);
+    public ResponseVo<Story> getStory(Integer pageNum, Integer pageSize, HttpServletRequest request) {
+        //System.out.println("Ck"+redisUtil.get(CookieUtil.getCk(request,SystemCon.TOKECOOKIE),0));
+        //ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
+        Users user = JSON.parseObject(TokenUtil.parseToken(CookieUtil.getCk(request,SystemCon.TOKECOOKIE)).getContent(), Users.class);
+        System.out.println(user);
         Integer uid = user.getUserId();
         System.out.println("这是用户id:" + uid);
 
@@ -82,9 +87,9 @@ public class StoryController {
      * @return
      */
     @GetMapping("/mySpaceInfo")
-    public ResultBean getMySpaceInfo() {
-        ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
-        Users user = JSON.parseObject(TokenUtil.parseToken(ops.get(SystemCon.TOKENHASH)).getContent(), Users.class);
+    public ResultBean getMySpaceInfo(HttpServletRequest request) {
+        Users user = JSON.parseObject(TokenUtil.parseToken(CookieUtil.getCk(request,SystemCon.TOKECOOKIE)).getContent(), Users.class);
+
         Integer uid = user.getUserId();
 
         return storyService.getMySpaceInfo(uid);
@@ -97,10 +102,9 @@ public class StoryController {
      * @return
      */
     @GetMapping("/myStory")
-    public ResultBean getMyStory() {
+    public ResultBean getMyStory(HttpServletRequest request) {
+        Users user = JSON.parseObject(TokenUtil.parseToken(CookieUtil.getCk(request,SystemCon.TOKECOOKIE)).getContent(), Users.class);
 
-        ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
-        Users user = JSON.parseObject(TokenUtil.parseToken(ops.get(SystemCon.TOKENHASH)).getContent(), Users.class);
         Integer uid = user.getUserId();
 
         return storyService.getMyStory(uid);
@@ -113,10 +117,9 @@ public class StoryController {
      * @return
      */
     @PostMapping("/doComment")
-    public ResultBean doComment(Comment comment) {
+    public ResultBean doComment(Comment comment,HttpServletRequest request) {
+        Users user = JSON.parseObject(TokenUtil.parseToken(CookieUtil.getCk(request,SystemCon.TOKECOOKIE)).getContent(), Users.class);
 
-        ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
-        Users user = JSON.parseObject(TokenUtil.parseToken(ops.get(SystemCon.TOKENHASH)).getContent(), Users.class);
         Integer uid = user.getUserId();
 
         System.out.println(comment);
@@ -149,9 +152,9 @@ public class StoryController {
     }
 
     @PostMapping("/addStory")
-    public ResultBean addStory(Story story, MultipartFile[] file) throws IOException {
-        ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
-        Users user = JSON.parseObject(TokenUtil.parseToken(ops.get(SystemCon.TOKENHASH)).getContent(), Users.class);
+    public ResultBean addStory(Story story, MultipartFile[] file,HttpServletRequest request) throws IOException {
+        Users user = JSON.parseObject(TokenUtil.parseToken(CookieUtil.getCk(request,SystemCon.TOKECOOKIE)).getContent(), Users.class);
+
         Integer uid = user.getUserId();
 
         System.out.println("故事图片"+file);

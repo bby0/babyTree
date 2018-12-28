@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -65,8 +67,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultBean updataUserInfo(StringRedisTemplate stringRedisTemplate, Users users) {
-        users.setUserId(UserUtil.getUserId(stringRedisTemplate));
+    public ResultBean updataUserInfo(HttpServletRequest request, Users users) {
+        users.setUserId(UserUtil.getUserId(request));
         System.out.println("user " + users);
         int i = usersMapper.updateByPrimaryKeySelective(users);
 
